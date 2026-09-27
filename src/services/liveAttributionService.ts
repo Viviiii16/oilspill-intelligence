@@ -145,7 +145,9 @@ export async function runAttribution(opts: RunAttributionOptions = {}): Promise<
   }
 
   const { onStage, aisFile, hoursBack, videos, pollMs = 2000, timeoutMs = 15 * 60_000 } = opts;
-  const t0 = opts.t0 ?? detection.scene.captureTime ?? undefined;
+  // captureTime exists in newer detectionApi.ts versions; read it defensively so older copies still compile
+  const sceneTime = (detection.scene as { captureTime?: string | null }).captureTime;
+  const t0 = opts.t0 ?? sceneTime ?? undefined;
 
   try {
     const fd = new FormData();
