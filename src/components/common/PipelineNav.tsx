@@ -32,9 +32,9 @@ export const PipelineNav: React.FC = () => {
   };
 
   return (
-    <aside className="w-[240px] bg-white border-r border-slate-200 flex flex-col justify-between py-4 px-3 select-none z-20 shrink-0 text-xs text-[#1E293B]">
+    <aside className="w-[240px] bg-[#091728] border-r border-[#1168a0]/40 flex flex-col justify-between py-4 px-3 select-none z-20 shrink-0 text-xs text-[#edf4fd]">
       <div>
-        <div className="text-[10px] uppercase text-[#64748B] tracking-wider mb-4 px-1 font-bold">
+        <div className="text-[10px] uppercase text-[#89bada] tracking-wider mb-4 px-1 font-bold">
           INVESTIGATION PROGRESS
         </div>
 
@@ -54,19 +54,19 @@ export const PipelineNav: React.FC = () => {
                 onClick={() => handleStepClick(s.targetStep)}
                 className={`w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-left transition-colors text-[11px] cursor-pointer ${
                   isCurrent
-                    ? 'bg-[#0F62FE]/10 text-[#0F62FE] font-bold border-l-4 border-[#0F62FE] shadow-xs'
+                    ? 'bg-[#1168a0] text-white font-bold border-l-4 border-[#f1aa6f] shadow-sm'
                     : isCompleted
-                    ? 'text-[#1E293B] hover:text-[#0F62FE] hover:bg-slate-100'
-                    : 'text-[#64748B] hover:text-[#1E293B] hover:bg-slate-50'
+                    ? 'text-[#edf4fd]/90 hover:text-white hover:bg-[#1168a0]/20'
+                    : 'text-[#89bada]/70 hover:text-[#edf4fd] hover:bg-[#1168a0]/20'
                 }`}
               >
                 <span
                   className={`w-4 text-center font-bold text-xs ${
                     isCompleted
-                      ? 'text-emerald-600'
+                      ? 'text-emerald-400'
                       : isCurrent
-                      ? 'text-[#D95800]'
-                      : 'text-slate-400'
+                      ? 'text-[#f1aa6f]'
+                      : 'text-[#89bada]/60'
                   }`}
                 >
                   {isCompleted ? '✓' : s.id}
@@ -79,34 +79,34 @@ export const PipelineNav: React.FC = () => {
       </div>
 
       {/* Oil Slick Coordinates & Time Card */}
-      <div className="p-2.5 rounded-xl bg-[#F8FAFC] border border-slate-200 text-[10px] text-[#1E293B] shadow-xs space-y-2">
-        <div className="flex items-center justify-between border-b border-slate-200 pb-1 text-[9.5px]">
-          <span className="text-[#64748B] uppercase font-bold tracking-wider flex items-center gap-1">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#D95800]" />
+      <div className="p-2.5 rounded-xl bg-[#0c1e33] border border-[#1168a0]/40 text-[10px] text-[#edf4fd] shadow-sm space-y-2">
+        <div className="flex items-center justify-between border-b border-[#1168a0]/30 pb-1 text-[9.5px]">
+          <span className="text-[#89bada] uppercase font-bold tracking-wider flex items-center gap-1">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#f1aa6f]" />
             Oil Slick T0
           </span>
-          <span className="px-1.5 py-0.5 rounded bg-[#0F62FE]/10 text-[#0F62FE] font-mono font-bold text-[9px]">
+          <span className="px-1.5 py-0.5 rounded bg-[#1168a0]/30 text-[#f1aa6f] font-mono font-bold text-[9px]">
             {currentCase.id}
           </span>
         </div>
 
         <div className="space-y-1.5">
           <div>
-            <div className="text-[9px] uppercase tracking-wider text-[#64748B] flex items-center gap-1 font-semibold">
-              <Clock className="w-3 h-3 text-[#D95800]" />
+            <div className="text-[9px] uppercase tracking-wider text-[#89bada] flex items-center gap-1 font-semibold">
+              <Clock className="w-3 h-3 text-[#f1aa6f]" />
               <span>Time of Slick</span>
             </div>
-            <div className="text-[10.5px] font-semibold text-[#1E293B] pl-4">
+            <div className="text-[10.5px] font-semibold text-white pl-4">
               26 Oct 2019, 05:53 AM
             </div>
           </div>
 
           <div>
-            <div className="text-[9px] uppercase tracking-wider text-[#64748B] flex items-center gap-1 font-semibold">
-              <MapPin className="w-3 h-3 text-[#64748B]" />
+            <div className="text-[9px] uppercase tracking-wider text-[#89bada] flex items-center gap-1 font-semibold">
+              <MapPin className="w-3 h-3 text-[#89bada]" />
               <span>Coordinates</span>
             </div>
-            <div className="text-[10px] font-mono text-[#1E293B] pl-4">
+            <div className="text-[10px] font-mono text-[#edf4fd] pl-4">
               {geometry.centroid.lat.toFixed(4)}°N, {geometry.centroid.lon.toFixed(4)}°E
             </div>
           </div>
