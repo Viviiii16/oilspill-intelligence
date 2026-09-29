@@ -21,7 +21,7 @@ export const Workspace: React.FC = () => {
   const currentStep = activeStep < 3 || activeStep > 6 ? 3 : activeStep;
 
   return (
-    <div className="flex-1 flex flex-col h-[calc(100vh-3.5rem)] bg-[#091524] text-[#edf4fd] overflow-hidden select-none">
+    <div className="flex-1 flex flex-col h-[calc(100vh-3.5rem)] bg-[#F4F6F8] text-[#1E293B] overflow-hidden select-none">
       {/* Center Three-Pane Workspace */}
       <div className="flex-1 flex overflow-hidden relative">
         {/* LEFT PANE: Thin Stepper Navigation */}
@@ -36,22 +36,22 @@ export const Workspace: React.FC = () => {
         {/* Left Collapse/Expand Toggle Button */}
         <button
           onClick={() => setIsNavCollapsed(!isNavCollapsed)}
-          className="absolute left-0 top-1/2 -translate-y-1/2 z-30 bg-[#0f243a] border border-[#1168a0]/50 hover:border-[#89bada] text-[#89bada] hover:text-white p-1 rounded-r shadow-md transition-all cursor-pointer"
+          className="absolute left-0 top-1/2 -translate-y-1/2 z-30 bg-white border border-slate-200 hover:border-slate-400 text-[#64748B] hover:text-[#1E293B] p-1 rounded-r shadow-md transition-all cursor-pointer"
           style={{ left: isNavCollapsed ? '0px' : '240px' }}
           title={isNavCollapsed ? 'Expand Progress Stepper' : 'Collapse Progress Stepper'}
         >
           {isNavCollapsed ? <ChevronRight className="w-3 h-3" /> : <ChevronLeft className="w-3 h-3" />}
         </button>
 
-        {/* CENTER PANE: GIS Map (Untouched) */}
-        <div className="flex-1 h-full relative overflow-hidden bg-[#090b10]">
+        {/* CENTER PANE: GIS Map */}
+        <div className="flex-1 h-full relative overflow-hidden bg-[#E2E8F0]">
           <GisMap />
         </div>
 
         {/* Right Collapse/Expand Toggle Button */}
         <button
           onClick={() => setIsPanelCollapsed(!isPanelCollapsed)}
-          className="absolute right-0 top-1/2 -translate-y-1/2 z-30 bg-[#0f243a] border border-[#1168a0]/50 hover:border-[#89bada] text-[#89bada] hover:text-white p-1 rounded-l shadow-md transition-all cursor-pointer"
+          className="absolute right-0 top-1/2 -translate-y-1/2 z-30 bg-white border border-slate-200 hover:border-slate-400 text-[#64748B] hover:text-[#1E293B] p-1 rounded-l shadow-md transition-all cursor-pointer"
           style={{ right: isPanelCollapsed ? '0px' : '440px' }}
           title={isPanelCollapsed ? 'Expand Analysis Panel' : 'Collapse Analysis Panel'}
         >
@@ -60,23 +60,23 @@ export const Workspace: React.FC = () => {
 
         {/* RIGHT PANE: Investigation Analysis Drawers (Width: 440px) */}
         <div
-          className={`h-full bg-[#0a1829] border-l border-[#1168a0]/40 flex flex-col transition-all duration-300 relative z-20 shrink-0 text-[#edf4fd] shadow-2xl ${
+          className={`h-full bg-white border-l border-slate-200 flex flex-col transition-all duration-300 relative z-20 shrink-0 text-[#1E293B] shadow-xl ${
             isPanelCollapsed ? 'w-0 overflow-hidden' : 'w-[440px]'
           }`}
         >
           {/* Synchronized Stage Navigation - 2 Streamlined Tabs */}
-          <div className="p-2.5 border-b border-[#1168a0]/30 bg-[#081524]/90 backdrop-blur-md shrink-0">
-            <div className="grid grid-cols-2 p-1 rounded-xl bg-[#060f1c] border border-[#1168a0]/40 gap-1.5">
+          <div className="p-2.5 border-b border-slate-200 bg-white shrink-0">
+            <div className="grid grid-cols-2 p-1 rounded-xl bg-[#F1F5F9] border border-slate-200 gap-1.5">
               <button
                 onClick={() => setActiveStep(3)}
                 title="Lagrangian Hindcast (Simulation)"
                 className={`w-full py-2 px-2 text-[11px] font-semibold rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap min-w-0 ${
                   currentStep === 3 || currentStep === 4
-                    ? 'bg-[#1168a0] text-white shadow-md font-bold'
-                    : 'text-[#89bada]/80 hover:text-white hover:bg-white/5'
+                    ? 'bg-[#0F62FE] text-white shadow-xs font-bold'
+                    : 'text-[#64748B] hover:text-[#1E293B] hover:bg-slate-200/60'
                 }`}
               >
-                <Waves className={`w-4 h-4 shrink-0 transition-transform duration-200 ${(currentStep === 3 || currentStep === 4) ? 'text-[#f1aa6f] scale-110' : 'text-[#89bada]'}`} />
+                <Waves className={`w-4 h-4 shrink-0 transition-transform duration-200 ${(currentStep === 3 || currentStep === 4) ? 'text-white scale-110' : 'text-[#64748B]'}`} />
                 <span className="truncate">Hindcast</span>
               </button>
 
@@ -85,11 +85,11 @@ export const Workspace: React.FC = () => {
                 title="AIS Vessel Traffic Screening & Candidates"
                 className={`w-full py-2 px-2 text-[11px] font-semibold rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap min-w-0 ${
                   currentStep === 5 || currentStep === 6
-                    ? 'bg-[#1168a0] text-white shadow-md font-bold'
-                    : 'text-[#89bada]/80 hover:text-white hover:bg-white/5'
+                    ? 'bg-[#0F62FE] text-white shadow-xs font-bold'
+                    : 'text-[#64748B] hover:text-[#1E293B] hover:bg-slate-200/60'
                 }`}
               >
-                <Radar className={`w-4 h-4 shrink-0 transition-transform duration-200 ${(currentStep === 5 || currentStep === 6) ? 'text-[#f1aa6f] scale-110' : 'text-[#89bada]'}`} />
+                <Radar className={`w-4 h-4 shrink-0 transition-transform duration-200 ${(currentStep === 5 || currentStep === 6) ? 'text-white scale-110' : 'text-[#64748B]'}`} />
                 <span className="truncate">AIS Screening & Suspects</span>
               </button>
             </div>
@@ -104,19 +104,19 @@ export const Workspace: React.FC = () => {
           </div>
 
           {/* Bottom Actions: Full Investigation Report + Analyse Another Image */}
-          <div className="p-3.5 border-t border-[#1168a0]/40 bg-[#081524]/90 backdrop-blur-md space-y-2 shrink-0">
+          <div className="p-3.5 border-t border-slate-200 bg-white space-y-2 shrink-0">
             <button
               onClick={() => goToRoute('report')}
-              className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-[#1168a0] to-[#167ab7] hover:from-[#1578b8] hover:to-[#1a88cc] text-white font-bold text-xs tracking-wide flex items-center justify-center gap-2 transition-all duration-200 shadow-md cursor-pointer active:scale-[0.99]"
+              className="w-full py-2.5 px-4 rounded-xl bg-[#0F62FE] hover:bg-[#0050E6] text-white font-bold text-xs tracking-wide flex items-center justify-center gap-2 transition-all duration-200 shadow-md cursor-pointer active:scale-[0.99]"
             >
-              <FileText className="w-4 h-4 text-[#89bada]" />
+              <FileText className="w-4 h-4 text-orange-200" />
               <span>Generate Report →</span>
             </button>
             <button
               onClick={() => goToRoute('landing')}
-              className="w-full py-2.5 px-4 rounded-xl bg-[#f1aa6f] hover:bg-[#f4b680] text-slate-950 font-bold text-xs tracking-wide flex items-center justify-center gap-2 transition-all duration-200 shadow-md cursor-pointer active:scale-[0.99]"
+              className="w-full py-2.5 px-4 rounded-xl bg-white hover:bg-slate-100 border border-slate-200 text-[#1E293B] font-bold text-xs tracking-wide flex items-center justify-center gap-2 transition-all duration-200 shadow-xs cursor-pointer active:scale-[0.99]"
             >
-              <RotateCcw className="w-4 h-4 text-slate-950" />
+              <RotateCcw className="w-4 h-4 text-[#64748B]" />
               <span>Analyse Another Image</span>
             </button>
           </div>

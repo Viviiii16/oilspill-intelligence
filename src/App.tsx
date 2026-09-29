@@ -12,7 +12,7 @@ const MainApp: React.FC = () => {
   const { currentRoute } = useInvestigation();
 
   return (
-    <div className="w-full h-screen flex flex-col bg-[#091524] text-slate-100 overflow-hidden font-sans select-none">
+    <div className="w-full h-screen flex flex-col bg-[#F4F6F8] text-[#1E293B] overflow-hidden font-sans select-none">
       {/* Persistent Minimal Header */}
       <AppHeader />
 

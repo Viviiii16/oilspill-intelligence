@@ -3,26 +3,26 @@
 
 @layer base {
   :root {
-    --color-orange: #f1aa6f;
-    --color-light-blue: #89bada;
-    --color-dark-blue: #1168a0;
-    --color-lightest-blue: #edf4fd;
+    --color-orange: #d95800;
+    --color-light-blue: #64748b;
+    --color-dark-blue: #0f62fe;
+    --color-lightest-blue: #f4f6f8;
 
-    --bg-dark: #0a3e61;
-    --bg-surface: #1168a0;
-    --bg-surface-elevated: #165682;
-    --border-tactical: rgba(137, 186, 218, 0.3);
-    --primary-bright: #89bada;
-    --primary-sky: #1168a0;
-    --oil-slick: #f1aa6f;
-    --amber-warning: #f1aa6f;
+    --bg-dark: #f4f6f8;
+    --bg-surface: #ffffff;
+    --bg-surface-elevated: #f8fafc;
+    --border-tactical: rgba(15, 98, 254, 0.2);
+    --primary-bright: #0f62fe;
+    --primary-sky: #0f62fe;
+    --oil-slick: #d95800;
+    --amber-warning: #d95800;
     --font-sans: 'Poppins', sans-serif;
     --font-heading: 'Poppins', sans-serif;
   }
 
   body {
-    background-color: #0d466d;
-    color: #edf4fd;
+    background-color: #f4f6f8;
+    color: #1e293b;
     font-family: 'Poppins', sans-serif;
     min-height: 100vh;
     margin: 0;
@@ -35,14 +35,14 @@
     height: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: #0a3e61;
+    background: #f4f6f8;
   }
   ::-webkit-scrollbar-thumb {
-    background: #1168a0;
+    background: #cbd5e1;
     border-radius: 3px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #89bada;
+    background: #94a3b8;
   }
 }
 
@@ -50,74 +50,75 @@
 .tactical-grid {
   background-size: 32px 32px;
   background-image: 
-    linear-gradient(to right, rgba(56, 189, 248, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(56, 189, 248, 0.05) 1px, transparent 1px);
+    linear-gradient(to right, rgba(15, 98, 254, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 98, 254, 0.06) 1px, transparent 1px);
 }
 
 .tactical-dots {
-  background-image: radial-gradient(rgba(56, 189, 248, 0.25) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(15, 98, 254, 0.2) 1px, transparent 1px);
   background-size: 24px 24px;
 }
 
 .glass-panel {
-  background: rgba(15, 32, 53, 0.88);
+  background: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(56, 189, 248, 0.2);
+  border: 1px solid rgba(15, 98, 254, 0.15);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.06);
 }
 
 .glass-panel-elevated {
-  background: rgba(21, 44, 72, 0.95);
+  background: rgba(255, 255, 255, 0.98);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(56, 189, 248, 0.35);
-  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5), 0 0 15px -3px rgba(56, 189, 248, 0.15);
+  border: 1px solid rgba(15, 98, 254, 0.25);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08), 0 0 15px -3px rgba(15, 98, 254, 0.08);
 }
 
 .glow-sky {
-  box-shadow: 0 0 16px -2px rgba(2, 132, 199, 0.35);
+  box-shadow: 0 0 16px -2px rgba(15, 98, 254, 0.25);
 }
 
 .glow-emerald {
-  box-shadow: 0 0 16px -2px rgba(16, 185, 129, 0.45);
+  box-shadow: 0 0 16px -2px rgba(16, 185, 129, 0.35);
 }
 
 .glow-amber {
-  box-shadow: 0 0 16px -2px rgba(245, 158, 11, 0.45);
+  box-shadow: 0 0 16px -2px rgba(217, 88, 0, 0.35);
 }
 
 .glow-purple {
-  box-shadow: 0 0 16px -2px rgba(168, 85, 247, 0.45);
+  box-shadow: 0 0 16px -2px rgba(168, 85, 247, 0.35);
 }
 
 .glow-coral {
-  box-shadow: 0 0 16px -2px rgba(249, 115, 22, 0.45);
+  box-shadow: 0 0 16px -2px rgba(217, 88, 0, 0.35);
 }
 
 .glow-red {
-  box-shadow: 0 0 16px -2px rgba(239, 68, 68, 0.45);
+  box-shadow: 0 0 16px -2px rgba(239, 68, 68, 0.35);
 }
 
 /* Leaflet container & elements */
 .leaflet-container {
-  background: #07090e !important;
+  background: #f1f5f9 !important;
   font-family: inherit;
 }
 
 .leaflet-tile {
-  filter: brightness(var(--map-tile-brightness, 1.25)) contrast(1.08) saturate(1.05);
+  filter: brightness(var(--map-tile-brightness, 1.05)) contrast(1.02);
 }
 
 .vessel-track-badge {
-  background: rgba(15, 23, 42, 0.92) !important;
-  border: 1px solid rgba(249, 115, 22, 0.6) !important;
+  background: #ffffff !important;
+  border: 1px solid rgba(217, 88, 0, 0.8) !important;
   border-radius: 4px !important;
-  color: #ffffff !important;
+  color: #1e293b !important;
   font-family: var(--font-mono), monospace !important;
   font-size: 10px !important;
   font-weight: 600 !important;
   padding: 1px 6px !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.9) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12) !important;
 }
 
 .vessel-track-badge::before {
@@ -125,15 +126,15 @@
 }
 
 .leaflet-popup-content-wrapper {
-  background: rgba(15, 23, 42, 0.96) !important;
-  color: #f1f5f9 !important;
-  border: 1px solid rgba(56, 189, 248, 0.5) !important;
+  background: #ffffff !important;
+  color: #1e293b !important;
+  border: 1px solid #cbd5e1 !important;
   border-radius: 8px !important;
   backdrop-filter: blur(8px);
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.9) !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15) !important;
 }
 
 .leaflet-popup-tip {
-  background: rgba(15, 23, 42, 0.96) !important;
-  border: 1px solid rgba(56, 189, 248, 0.5) !important;
+  background: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
 }

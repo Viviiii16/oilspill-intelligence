@@ -84,13 +84,13 @@ export const ReportPage: React.FC = () => {
   };
 
   return (
-    <div className="flex-1 overflow-y-auto bg-[#091524] text-[#edf4fd] font-sans py-8 px-4 sm:px-8 select-none">
+    <div className="flex-1 overflow-y-auto bg-[#F4F6F8] text-[#1E293B] font-sans py-8 px-4 sm:px-8 select-none">
       <div className="max-w-3xl mx-auto space-y-8">
         {/* Top Actions Bar */}
-        <div className="flex items-center justify-between border-b border-[#1168a0]/40 pb-4 print:hidden">
+        <div className="flex items-center justify-between border-b border-slate-200 pb-4 print:hidden">
           <button
             onClick={() => goToRoute('investigation')}
-            className="flex items-center gap-1.5 text-xs text-[#89bada] hover:text-[#edf4fd] font-semibold transition-colors cursor-pointer"
+            className="flex items-center gap-1.5 text-xs text-[#64748B] hover:text-[#1E293B] font-semibold transition-colors cursor-pointer"
           >
             <ChevronLeft className="w-4 h-4" />
             <span>Return to Workspace</span>
@@ -99,23 +99,23 @@ export const ReportPage: React.FC = () => {
           <div className="flex items-center gap-2">
             <button
               onClick={handleExportJson}
-              className="px-3.5 py-1.5 rounded-lg bg-[#082e49] hover:bg-[#1168a0] border border-[#1168a0]/80 text-xs text-[#edf4fd] flex items-center gap-1.5 transition-colors cursor-pointer shadow-xs"
+              className="px-3.5 py-1.5 rounded-lg bg-white hover:bg-slate-100 border border-slate-200 text-xs text-[#1E293B] flex items-center gap-1.5 transition-colors cursor-pointer shadow-xs"
             >
-              <Download className="w-3.5 h-3.5 text-[#89bada]" />
+              <Download className="w-3.5 h-3.5 text-[#64748B]" />
               <span>Export JSON</span>
             </button>
 
             <button
               onClick={handleExportCsv}
-              className="px-3.5 py-1.5 rounded-lg bg-[#082e49] hover:bg-[#1168a0] border border-[#1168a0]/80 text-xs text-[#edf4fd] flex items-center gap-1.5 transition-colors cursor-pointer shadow-xs"
+              className="px-3.5 py-1.5 rounded-lg bg-white hover:bg-slate-100 border border-slate-200 text-xs text-[#1E293B] flex items-center gap-1.5 transition-colors cursor-pointer shadow-xs"
             >
-              <Download className="w-3.5 h-3.5 text-[#89bada]" />
+              <Download className="w-3.5 h-3.5 text-[#64748B]" />
               <span>Export CSV</span>
             </button>
 
             <button
               onClick={handlePrint}
-              className="px-3.5 py-1.5 rounded-lg bg-[#f1aa6f] hover:bg-[#f4b680] text-[#0a3554] font-bold text-xs flex items-center gap-1.5 transition-colors cursor-pointer shadow-md shadow-[#f1aa6f]/20"
+              className="px-3.5 py-1.5 rounded-lg bg-[#0F62FE] hover:bg-[#0050E6] text-white font-bold text-xs flex items-center gap-1.5 transition-colors cursor-pointer shadow-sm"
             >
               <Printer className="w-3.5 h-3.5" />
               <span>Print Report</span>
@@ -124,24 +124,24 @@ export const ReportPage: React.FC = () => {
         </div>
 
         {/* Clean Report Document Container */}
-        <div className="bg-[#0a1829] border border-[#1168a0]/60 rounded-2xl p-8 sm:p-12 shadow-2xl space-y-8 print:border-none print:shadow-none print:p-0 print:bg-transparent text-[#edf4fd]">
+        <div className="bg-white border border-slate-200 rounded-2xl p-8 sm:p-12 shadow-xl space-y-8 print:border-none print:shadow-none print:p-0 print:bg-transparent text-[#1E293B]">
           {/* Header */}
-          <div className="border-b border-[#1168a0]/50 pb-6 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
+          <div className="border-b border-slate-200 pb-6 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
             <div>
-              <div className="text-[11px] text-[#f1aa6f] tracking-wider font-bold mb-1">
+              <div className="text-[11px] text-[#D95800] tracking-wider font-bold mb-1">
                 MARINE SPILL INTELLIGENCE DOSSIER
               </div>
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+              <h1 className="text-2xl sm:text-3xl font-extrabold text-[#1E293B] tracking-tight">
                 Investigation Report
               </h1>
-              <p className="text-xs text-[#89bada] mt-1">
+              <p className="text-xs text-[#64748B] mt-1">
                 Satellite SAR Detection & Reverse-Lagrangian Attribution Pipeline
               </p>
             </div>
 
             <div className="text-left sm:text-right">
-              <span className="text-[10px] text-[#89bada] block uppercase font-semibold">CASE IDENTIFIER</span>
-              <span className="text-lg font-extrabold text-[#f1aa6f] tracking-wider">
+              <span className="text-[10px] text-[#64748B] block uppercase font-semibold">CASE IDENTIFIER</span>
+              <span className="text-lg font-extrabold text-[#D95800] tracking-wider">
                 {currentCase.id}
               </span>
             </div>
@@ -149,148 +149,148 @@ export const ReportPage: React.FC = () => {
 
           {/* Section 1: Observation */}
           <div className="space-y-2">
-            <h2 className="text-xs font-bold text-[#89bada] uppercase tracking-wider flex items-center gap-2 border-b border-[#1168a0]/40 pb-1.5">
-              <Satellite className="w-3.5 h-3.5 text-[#f1aa6f]" />
+            <h2 className="text-xs font-bold text-[#64748B] uppercase tracking-wider flex items-center gap-2 border-b border-slate-200 pb-1.5">
+              <Satellite className="w-3.5 h-3.5 text-[#D95800]" />
               <span>OBSERVATION</span>
             </h2>
-            <p className="text-xs text-[#edf4fd]/90 leading-relaxed">
+            <p className="text-xs text-[#1E293B] leading-relaxed">
               Satellite SAR observation detected an elongated radar-dark anomaly in international shipping lanes within the Ionian Sea, Mediterranean Basin. Radiometric profiling indicates significant capillary wave damping consistent with mineral petroleum hydrocarbon release.
             </p>
           </div>
 
           {/* Section 2: Slick Characterisation */}
           <div className="space-y-3">
-            <h2 className="text-xs font-bold text-[#89bada] uppercase tracking-wider flex items-center gap-2 border-b border-[#1168a0]/40 pb-1.5">
+            <h2 className="text-xs font-bold text-[#64748B] uppercase tracking-wider flex items-center gap-2 border-b border-slate-200 pb-1.5">
               <span>SLICK CHARACTERISATION</span>
             </h2>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
-              <div className="p-3.5 bg-[#082e49]/90 rounded-xl border border-[#1168a0]/60">
-                <span className="text-[10px] text-[#89bada] block font-medium">Area</span>
-                <span className="text-sm font-bold text-white">17.73 km²</span>
+              <div className="p-3.5 bg-[#F8FAFC] rounded-xl border border-slate-200">
+                <span className="text-[10px] text-[#64748B] block font-medium">Area</span>
+                <span className="text-sm font-bold text-[#1E293B]">17.73 km²</span>
               </div>
-              <div className="p-3.5 bg-[#082e49]/90 rounded-xl border border-[#1168a0]/60">
-                <span className="text-[10px] text-[#89bada] block font-medium">Capture</span>
-                <span className="text-xs font-bold text-white">26 Oct 2019 • 05:53 UTC</span>
+              <div className="p-3.5 bg-[#F8FAFC] rounded-xl border border-slate-200">
+                <span className="text-[10px] text-[#64748B] block font-medium">Capture</span>
+                <span className="text-xs font-bold text-[#1E293B]">26 Oct 2019 • 05:53 UTC</span>
               </div>
-              <div className="p-3.5 bg-[#082e49]/90 rounded-xl border border-[#1168a0]/60">
-                <span className="text-[10px] text-[#89bada] block font-medium">Centroid</span>
-                <span className="text-xs font-bold text-white">35.5240° N, 18.4520° E</span>
+              <div className="p-3.5 bg-[#F8FAFC] rounded-xl border border-slate-200">
+                <span className="text-[10px] text-[#64748B] block font-medium">Centroid</span>
+                <span className="text-xs font-bold text-[#1E293B]">35.5240° N, 18.4520° E</span>
               </div>
-              <div className="p-3.5 bg-[#082e49]/90 rounded-xl border border-[#1168a0]/60">
-                <span className="text-[10px] text-[#89bada] block font-medium">Substance Type</span>
-                <span className="text-xs font-bold text-[#f1aa6f]">Heavy Fuel / Sludge</span>
+              <div className="p-3.5 bg-[#F8FAFC] rounded-xl border border-slate-200">
+                <span className="text-[10px] text-[#64748B] block font-medium">Substance Type</span>
+                <span className="text-xs font-bold text-[#D95800]">Heavy Fuel / Sludge</span>
               </div>
             </div>
           </div>
 
           {/* Section 3: Reconstruction */}
           <div className="space-y-3">
-            <h2 className="text-xs font-bold text-[#89bada] uppercase tracking-wider flex items-center gap-2 border-b border-[#1168a0]/40 pb-1.5">
-              <Compass className="w-3.5 h-3.5 text-[#f1aa6f]" />
+            <h2 className="text-xs font-bold text-[#64748B] uppercase tracking-wider flex items-center gap-2 border-b border-slate-200 pb-1.5">
+              <Compass className="w-3.5 h-3.5 text-[#D95800]" />
               <span>RECONSTRUCTION</span>
             </h2>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
-              <div className="p-3.5 bg-[#082e49]/90 rounded-xl border border-[#1168a0]/60">
-                <span className="text-[10px] text-[#89bada] block font-medium">Hindcast window</span>
-                <span className="text-sm font-bold text-white">24 hours</span>
+              <div className="p-3.5 bg-[#F8FAFC] rounded-xl border border-slate-200">
+                <span className="text-[10px] text-[#64748B] block font-medium">Hindcast window</span>
+                <span className="text-sm font-bold text-[#1E293B]">24 hours</span>
               </div>
-              <div className="p-3.5 bg-[#082e49]/90 rounded-xl border border-[#1168a0]/60">
-                <span className="text-[10px] text-[#89bada] block font-medium">Particles</span>
-                <span className="text-sm font-bold text-white">1,750</span>
+              <div className="p-3.5 bg-[#F8FAFC] rounded-xl border border-slate-200">
+                <span className="text-[10px] text-[#64748B] block font-medium">Particles</span>
+                <span className="text-sm font-bold text-[#1E293B]">1,750</span>
               </div>
-              <div className="p-3.5 bg-[#082e49]/90 rounded-xl border border-[#1168a0]/60">
-                <span className="text-[10px] text-[#89bada] block font-medium">KDE Envelope</span>
-                <span className="text-sm font-bold text-[#89bada]">95% Confidence</span>
+              <div className="p-3.5 bg-[#F8FAFC] rounded-xl border border-slate-200">
+                <span className="text-[10px] text-[#64748B] block font-medium">KDE Envelope</span>
+                <span className="text-sm font-bold text-[#0F62FE]">95% Confidence</span>
               </div>
-              <div className="p-3.5 bg-[#082e49]/90 rounded-xl border border-[#1168a0]/60">
-                <span className="text-[10px] text-[#89bada] block font-medium">Forcing Datasets</span>
-                <span className="text-xs font-bold text-[#edf4fd]">ERA5 + CMEMS</span>
+              <div className="p-3.5 bg-[#F8FAFC] rounded-xl border border-slate-200">
+                <span className="text-[10px] text-[#64748B] block font-medium">Forcing Datasets</span>
+                <span className="text-xs font-bold text-[#1E293B]">ERA5 + CMEMS</span>
               </div>
             </div>
-            <p className="text-xs text-[#edf4fd]/90 leading-relaxed">
-              Estimated release origin reconstructed to <strong className="text-[#f1aa6f]">35.4821° N, 18.3914° E</strong> at <strong className="text-white">T−16h (25 Oct 2019 13:53 UTC)</strong>, encompassing an envelope area of 8.42 km² along the primary shipping traffic corridor.
+            <p className="text-xs text-[#1E293B] leading-relaxed">
+              Estimated release origin reconstructed to <strong className="text-[#D95800]">35.4821° N, 18.3914° E</strong> at <strong className="text-[#1E293B]">T−16h (25 Oct 2019 13:53 UTC)</strong>, encompassing an envelope area of 8.42 km² along the primary shipping traffic corridor.
             </p>
           </div>
 
           {/* Section 4: AIS Correlation */}
           <div className="space-y-3">
-            <h2 className="text-xs font-bold text-[#89bada] uppercase tracking-wider flex items-center gap-2 border-b border-[#1168a0]/40 pb-1.5">
-              <Ship className="w-3.5 h-3.5 text-[#f1aa6f]" />
+            <h2 className="text-xs font-bold text-[#64748B] uppercase tracking-wider flex items-center gap-2 border-b border-slate-200 pb-1.5">
+              <Ship className="w-3.5 h-3.5 text-[#D95800]" />
               <span>AIS CORRELATION</span>
             </h2>
-            <div className="flex items-center gap-3 text-xs text-[#edf4fd]">
-              <div className="p-3.5 bg-[#082e49]/90 rounded-xl border border-[#1168a0]/60 flex-1">
-                <span className="text-[10px] text-[#89bada] block font-medium">Screened AIS Traffic</span>
-                <span className="text-sm font-bold text-white">28 vessels screened</span>
+            <div className="flex items-center gap-3 text-xs text-[#1E293B]">
+              <div className="p-3.5 bg-[#F8FAFC] rounded-xl border border-slate-200 flex-1">
+                <span className="text-[10px] text-[#64748B] block font-medium">Screened AIS Traffic</span>
+                <span className="text-sm font-bold text-[#1E293B]">28 vessels screened</span>
               </div>
-              <div className="p-3.5 bg-[#082e49]/90 rounded-xl border border-[#1168a0]/60 flex-1">
-                <span className="text-[10px] text-[#89bada] block font-medium">Identified Candidates</span>
-                <span className="text-sm font-bold text-[#f1aa6f]">5 candidates identified</span>
+              <div className="p-3.5 bg-[#F8FAFC] rounded-xl border border-slate-200 flex-1">
+                <span className="text-[10px] text-[#64748B] block font-medium">Identified Candidates</span>
+                <span className="text-sm font-bold text-[#D95800]">5 candidates identified</span>
               </div>
             </div>
           </div>
 
           {/* Section 5: Candidate Vessel */}
-          <div className="space-y-3.5 p-6 rounded-2xl bg-[#082e49]/90 border border-[#1168a0] shadow-xl">
-            <div className="flex items-center justify-between border-b border-[#1168a0]/50 pb-3">
-              <span className="text-xs font-bold text-[#89bada] tracking-wider uppercase">
+          <div className="space-y-3.5 p-6 rounded-2xl bg-[#F8FAFC] border border-slate-200 shadow-md">
+            <div className="flex items-center justify-between border-b border-slate-200 pb-3">
+              <span className="text-xs font-bold text-[#64748B] tracking-wider uppercase">
                 PRIMARY CANDIDATE VESSEL
               </span>
-              <span className="px-3 py-1 rounded-full bg-[#f1aa6f] text-[#0a3554] text-xs font-black shadow-md">
+              <span className="px-3 py-1 rounded-full bg-[#D95800] text-white text-xs font-black shadow-xs">
                 SCORE: {topSuspect.culpritScorePct}%
               </span>
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
               <div>
-                <span className="text-[#89bada] block text-[10px] font-medium">Vessel Name</span>
-                <span className="text-sm font-extrabold text-white">{topSuspect.vesselName}</span>
+                <span className="text-[#64748B] block text-[10px] font-medium">Vessel Name</span>
+                <span className="text-sm font-extrabold text-[#1E293B]">{topSuspect.vesselName}</span>
               </div>
               <div>
-                <span className="text-[#89bada] block text-[10px] font-medium">MMSI</span>
-                <span className="text-sm font-bold text-[#89bada]">{topSuspect.mmsi}</span>
+                <span className="text-[#64748B] block text-[10px] font-medium">MMSI</span>
+                <span className="text-sm font-bold text-[#0F62FE]">{topSuspect.mmsi}</span>
               </div>
               <div>
-                <span className="text-[#89bada] block text-[10px] font-medium">Vessel Type</span>
-                <span className="font-semibold text-[#edf4fd]">{topSuspect.vesselType}</span>
+                <span className="text-[#64748B] block text-[10px] font-medium">Vessel Type</span>
+                <span className="font-semibold text-[#1E293B]">{topSuspect.vesselType}</span>
               </div>
               <div>
-                <span className="text-[#89bada] block text-[10px] font-medium">Closest approach</span>
-                <span className="text-sm font-bold text-[#f1aa6f]">{topSuspect.mdoKm} km</span>
+                <span className="text-[#64748B] block text-[10px] font-medium">Closest approach</span>
+                <span className="text-sm font-bold text-[#D95800]">{topSuspect.mdoKm} km</span>
               </div>
               <div>
-                <span className="text-[#89bada] block text-[10px] font-medium">Temporal intersection</span>
-                <span className="text-sm font-bold text-[#89bada]">T−16h (13:53 UTC)</span>
+                <span className="text-[#64748B] block text-[10px] font-medium">Temporal intersection</span>
+                <span className="text-sm font-bold text-[#0F62FE]">T−16h (13:53 UTC)</span>
               </div>
               <div>
-                <span className="text-[#89bada] block text-[10px] font-medium">Speed / Heading</span>
-                <span className="font-semibold text-[#edf4fd]">
+                <span className="text-[#64748B] block text-[10px] font-medium">Speed / Heading</span>
+                <span className="font-semibold text-[#1E293B]">
                   {topSuspect.sogKn} kn @ {topSuspect.cogDeg.toString().padStart(3, '0')}°
                 </span>
               </div>
             </div>
 
             {/* Factor breakdown */}
-            <div className="border-t border-[#1168a0]/50 pt-3.5">
-              <div className="text-[10px] text-[#89bada] mb-2 font-bold uppercase tracking-wider">
+            <div className="border-t border-slate-200 pt-3.5">
+              <div className="text-[10px] text-[#64748B] mb-2 font-bold uppercase tracking-wider">
                 Score Contribution Breakdown:
               </div>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[11px]">
-                <div className="p-2.5 bg-[#0a1829] rounded-lg border border-[#1168a0]/60">
-                  <span className="text-[#89bada] block text-[10px] font-medium">Spatial (45%)</span>
-                  <span className="text-[#f1aa6f] font-bold">{topSuspect.spatialScore} pts</span>
+                <div className="p-2.5 bg-white rounded-lg border border-slate-200 shadow-xs">
+                  <span className="text-[#64748B] block text-[10px] font-medium">Spatial (45%)</span>
+                  <span className="text-[#D95800] font-bold">{topSuspect.spatialScore} pts</span>
                 </div>
-                <div className="p-2.5 bg-[#0a1829] rounded-lg border border-[#1168a0]/60">
-                  <span className="text-[#89bada] block text-[10px] font-medium">Temporal (20%)</span>
-                  <span className="text-[#89bada] font-bold">{topSuspect.temporalScore} pts</span>
+                <div className="p-2.5 bg-white rounded-lg border border-slate-200 shadow-xs">
+                  <span className="text-[#64748B] block text-[10px] font-medium">Temporal (20%)</span>
+                  <span className="text-[#0F62FE] font-bold">{topSuspect.temporalScore} pts</span>
                 </div>
-                <div className="p-2.5 bg-[#0a1829] rounded-lg border border-[#1168a0]/60">
-                  <span className="text-[#89bada] block text-[10px] font-medium">Course (20%)</span>
-                  <span className="text-[#edf4fd] font-bold">{topSuspect.courseScore} pts</span>
+                <div className="p-2.5 bg-white rounded-lg border border-slate-200 shadow-xs">
+                  <span className="text-[#64748B] block text-[10px] font-medium">Course (20%)</span>
+                  <span className="text-[#1E293B] font-bold">{topSuspect.courseScore} pts</span>
                 </div>
-                <div className="p-2.5 bg-[#0a1829] rounded-lg border border-[#1168a0]/60">
-                  <span className="text-[#89bada] block text-[10px] font-medium">Speed (15%)</span>
-                  <span className="text-[#f1aa6f] font-bold">{topSuspect.speedScore} pts</span>
+                <div className="p-2.5 bg-white rounded-lg border border-slate-200 shadow-xs">
+                  <span className="text-[#64748B] block text-[10px] font-medium">Speed (15%)</span>
+                  <span className="text-[#D95800] font-bold">{topSuspect.speedScore} pts</span>
                 </div>
               </div>
             </div>
@@ -298,20 +298,20 @@ export const ReportPage: React.FC = () => {
 
           {/* Section 6: Candidate Vessels Attribution Ranking Table */}
           <div className="space-y-4">
-            <div className="border-b border-[#1168a0]/40 pb-2 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
-              <h2 className="text-xs font-bold text-[#89bada] uppercase tracking-wider flex items-center gap-2">
-                <ListOrdered className="w-3.5 h-3.5 text-[#f1aa6f]" />
+            <div className="border-b border-slate-200 pb-2 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+              <h2 className="text-xs font-bold text-[#64748B] uppercase tracking-wider flex items-center gap-2">
+                <ListOrdered className="w-3.5 h-3.5 text-[#D95800]" />
                 <span>CANDIDATE VESSELS ATTRIBUTION RANKING</span>
               </h2>
-              <span className="text-[10px] text-[#89bada]">
+              <span className="text-[10px] text-[#64748B]">
                 Ranked by multi-factor Bayesian attribution score
               </span>
             </div>
 
-            <div className="overflow-x-auto rounded-xl border border-[#1168a0]/60 bg-[#082e49]/70 shadow-xl">
+            <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-xs">
               <table className="w-full text-left text-xs border-collapse">
                 <thead>
-                  <tr className="bg-[#081524] text-[#89bada] border-b border-[#1168a0]/60 text-[10.5px] uppercase font-bold tracking-wider">
+                  <tr className="bg-[#F1F5F9] text-[#64748B] border-b border-slate-200 text-[10.5px] uppercase font-bold tracking-wider">
                     <th className="py-3 px-3.5">Rank</th>
                     <th className="py-3 px-3.5">Vessel Name & MMSI</th>
                     <th className="py-3 px-3.5">Vessel Type</th>
@@ -322,7 +322,7 @@ export const ReportPage: React.FC = () => {
                     <th className="py-3 px-3.5 text-center">Status</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#1168a0]/30 text-xs">
+                <tbody className="divide-y divide-slate-200 text-xs">
                   {suspects.map((s) => {
                     const isRank1 = s.rank === 1;
                     return (
@@ -330,72 +330,72 @@ export const ReportPage: React.FC = () => {
                         key={s.mmsi}
                         className={`transition-colors ${
                           isRank1
-                            ? 'bg-[#1168a0]/25 text-white font-medium border-l-4 border-[#f1aa6f]'
-                            : 'hover:bg-white/[0.03] text-[#edf4fd]/90'
+                            ? 'bg-[#0F62FE]/5 text-[#1E293B] font-medium border-l-4 border-[#D95800]'
+                            : 'hover:bg-slate-50 text-[#1E293B]'
                         }`}
                       >
                         <td className="py-3 px-3.5 whitespace-nowrap">
                           <span
                             className={`inline-flex items-center justify-center w-6 h-6 rounded-full text-center text-[10.5px] font-bold ${
                               isRank1
-                                ? 'bg-[#f1aa6f] text-[#0a3554] shadow-sm ring-2 ring-[#f1aa6f]/40'
-                                : 'bg-[#0a1829] text-[#89bada] border border-[#1168a0]/60'
+                                ? 'bg-orange-50 text-[#D95800] ring-2 ring-[#D95800]/40'
+                                : 'bg-slate-100 text-[#64748B] border border-slate-200'
                             }`}
                           >
                             #{s.rank.toString().padStart(2, '0')}
                           </span>
                         </td>
                         <td className="py-3 px-3.5 whitespace-nowrap">
-                          <div className="font-bold text-white flex items-center gap-1.5">
-                            <Ship className={`w-3.5 h-3.5 ${isRank1 ? 'text-[#f1aa6f]' : 'text-[#89bada]'}`} />
+                          <div className="font-bold text-[#1E293B] flex items-center gap-1.5">
+                            <Ship className={`w-3.5 h-3.5 ${isRank1 ? 'text-[#D95800]' : 'text-[#0F62FE]'}`} />
                             <span>{s.vesselName}</span>
                           </div>
-                          <span className="text-[10px] font-mono text-[#89bada]">
+                          <span className="text-[10px] font-mono text-[#64748B]">
                             MMSI: {s.mmsi}
                           </span>
                         </td>
-                        <td className="py-3 px-3.5 whitespace-nowrap text-[#edf4fd]">
+                        <td className="py-3 px-3.5 whitespace-nowrap text-[#1E293B]">
                           {s.vesselType}
                         </td>
                         <td className="py-3 px-3.5 whitespace-nowrap">
-                          <span className={`font-bold ${isRank1 ? 'text-[#f1aa6f]' : 'text-white'}`}>
+                          <span className={`font-bold ${isRank1 ? 'text-[#D95800]' : 'text-[#1E293B]'}`}>
                             {s.mdoKm.toFixed(2)} km
                           </span>
                         </td>
-                        <td className="py-3 px-3.5 whitespace-nowrap font-mono text-[11px] text-[#89bada]">
+                        <td className="py-3 px-3.5 whitespace-nowrap font-mono text-[11px] text-[#64748B]">
                           T−{s.closestHourBack}h ({s.timeClosestApproach.slice(11, 16)} UTC)
                         </td>
-                        <td className="py-3 px-3.5 whitespace-nowrap font-mono text-[11px] text-[#edf4fd]">
+                        <td className="py-3 px-3.5 whitespace-nowrap font-mono text-[11px] text-[#1E293B]">
                           {s.sogKn} kn @ {s.cogDeg.toString().padStart(3, '0')}°
                         </td>
                         <td className="py-3 px-3.5 whitespace-nowrap">
                           <div className="flex items-center gap-2">
-                            <div className="w-16 h-2 bg-[#081524] rounded-full overflow-hidden border border-[#1168a0]/40">
+                            <div className="w-16 h-2 bg-slate-100 rounded-full overflow-hidden border border-slate-200">
                               <div
                                 className={`h-full rounded-full ${
                                   isRank1
-                                    ? 'bg-gradient-to-r from-[#89bada] to-[#f1aa6f]'
-                                    : 'bg-[#1168a0]'
+                                    ? 'bg-gradient-to-r from-[#0F62FE] to-[#D95800]'
+                                    : 'bg-[#0F62FE]'
                                 }`}
                                 style={{ width: `${s.culpritScorePct}%` }}
                               />
                             </div>
-                            <span className={`font-bold text-xs ${isRank1 ? 'text-[#f1aa6f]' : 'text-[#89bada]'}`}>
+                            <span className={`font-bold text-xs ${isRank1 ? 'text-[#D95800]' : 'text-[#0F62FE]'}`}>
                               {s.culpritScorePct}%
                             </span>
                           </div>
                         </td>
                         <td className="py-3 px-3.5 whitespace-nowrap text-center">
                           {isRank1 ? (
-                            <span className="inline-block px-2.5 py-1 rounded-md bg-[#f1aa6f]/20 border border-[#f1aa6f]/60 text-[#f1aa6f] text-[10px] font-black uppercase tracking-wider shadow-xs">
+                            <span className="inline-block px-2.5 py-1 rounded-md bg-orange-50 border border-[#D95800]/40 text-[#D95800] text-[10px] font-black uppercase tracking-wider shadow-xs">
                               Primary Culprit
                             </span>
                           ) : s.rank === 2 ? (
-                            <span className="inline-block px-2 py-0.5 rounded-md bg-[#1168a0]/30 border border-[#1168a0]/60 text-[#89bada] text-[10px] font-semibold uppercase tracking-wider">
+                            <span className="inline-block px-2 py-0.5 rounded-md bg-blue-50 border border-[#0F62FE]/30 text-[#0F62FE] text-[10px] font-semibold uppercase tracking-wider">
                               Low Probability
                             </span>
                           ) : (
-                            <span className="inline-block px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-slate-400 text-[10px] font-medium uppercase tracking-wider">
+                            <span className="inline-block px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200 text-slate-500 text-[10px] font-medium uppercase tracking-wider">
                               Exonerated
                             </span>
                           )}

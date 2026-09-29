@@ -143,7 +143,7 @@ export const DetectionPage: React.FC = () => {
       });
     });
 
-    // 1. SAR Footprint layer (Square, Theme Orange #f1aa6f)
+    // 1. SAR Footprint layer (Square, Theme Orange #D95800)
     const halfLat = 0.20; // ~22.2 km
     const halfLon = halfLat / Math.cos((centerLat * Math.PI) / 180); // ~28.2 km for perfect square in Mercator
     const squareBounds: [[number, number], [number, number]] =
@@ -154,10 +154,10 @@ export const DetectionPage: React.FC = () => {
             [centerLat + halfLat, centerLon + halfLon],
           ];
     const footprint = L.rectangle(squareBounds, {
-      color: '#f1aa6f',
+      color: '#D95800',
       weight: 2.0,
       dashArray: '6, 6',
-      fillColor: '#f1aa6f',
+      fillColor: '#D95800',
       fillOpacity: 0.10,
     }).addTo(map);
     footprint.bindTooltip(
@@ -166,24 +166,24 @@ export const DetectionPage: React.FC = () => {
     );
     footprintLayerRef.current = footprint;
 
-    // 2. Oil Slick Layer Group (Light Opacity Orange Inside matching investigation page)
+    // 2. Oil Slick Layer Group (Theme Orange #D95800)
     const slickGroup = L.layerGroup().addTo(map);
     displayGeometry.coordinates.forEach((partCoords) => {
       const latLngs = partCoords.map(([lon, lat]) => [lat, lon] as [number, number]);
       const polygon = L.polygon(latLngs, {
-        color: '#f1aa6f',
+        color: '#D95800',
         weight: 2.5,
-        fillColor: '#f1aa6f',
-        fillOpacity: 0.25,
+        fillColor: '#D95800',
+        fillOpacity: 0.28,
       });
 
       polygon.bindPopup(`
-        <div style="font-family: 'Poppins', sans-serif; font-size: 11px; padding: 6px; background: #082e49; color: #edf4fd; border-radius: 8px;">
-          <div style="color: #f1aa6f; font-weight: bold; margin-bottom: 4px; font-size: 12px;">Detected Oil Slick</div>
-          <div style="margin-bottom: 2px;">Area: <b style="color: #ffffff;">${stats.area}</b></div>
-          <div style="margin-bottom: 2px;">Confidence: <b style="color: #89bada;">${stats.confidence}</b></div>
-          <div style="color: #89bada; margin-top: 4px;">Centroid:</div>
-          <div style="color: #edf4fd; font-weight: bold;">${fmtLat(centerLat)}, ${fmtLon(centerLon)}</div>
+        <div style="font-family: 'Poppins', sans-serif; font-size: 11px; padding: 6px; background: #ffffff; color: #1e293b; border-radius: 8px;">
+          <div style="color: #d95800; font-weight: bold; margin-bottom: 4px; font-size: 12px;">Detected Oil Slick</div>
+          <div style="margin-bottom: 2px;">Area: <b style="color: #1e293b;">${stats.area}</b></div>
+          <div style="margin-bottom: 2px;">Confidence: <b style="color: #0f62fe;">${stats.confidence}</b></div>
+          <div style="color: #64748b; margin-top: 4px;">Centroid:</div>
+          <div style="color: #1e293b; font-weight: bold;">${fmtLat(centerLat)}, ${fmtLon(centerLon)}</div>
         </div>
       `);
 
@@ -191,12 +191,12 @@ export const DetectionPage: React.FC = () => {
     });
     slickLayerRef.current = slickGroup;
 
-    // 3. Centroid Marker (Theme Blue)
+    // 3. Centroid Marker (Theme Blue #0F62FE)
     const centroidMarker = L.circleMarker([centerLat, centerLon], {
       radius: 6,
-      color: '#89bada',
+      color: '#ffffff',
       weight: 2,
-      fillColor: '#1168a0',
+      fillColor: '#0F62FE',
       fillOpacity: 0.95,
     }).addTo(map);
     centroidMarker.bindTooltip(
@@ -254,21 +254,21 @@ export const DetectionPage: React.FC = () => {
   const isAnalysingSlick = processingState === 'analysing-slick';
 
   return (
-    <div className="flex-1 flex flex-col md:flex-row h-[calc(100vh-3.5rem)] bg-[#091524] text-[#edf4fd] overflow-hidden select-none font-sans">
+    <div className="flex-1 flex flex-col md:flex-row h-[calc(100vh-3.5rem)] bg-[#F4F6F8] text-[#1E293B] overflow-hidden select-none font-sans">
       {/* LEFT MAP PANE */}
-      <div className="relative flex-1 h-full bg-[#090b10] overflow-hidden">
+      <div className="relative flex-1 h-full bg-[#E2E8F0] overflow-hidden">
         <div ref={mapContainerRef} className="w-full h-full z-0" />
 
         {/* Top-Left Floating Map Controls */}
         <div className="absolute top-4 left-4 z-[400] flex items-center gap-2">
           {/* Layer toggles dropdown/pills */}
-          <div className="flex items-center gap-1.5 p-1 rounded-xl bg-[#0a3e61]/90 border border-[#1168a0]/60 text-xs text-[#edf4fd] backdrop-blur-md shadow-lg">
+          <div className="flex items-center gap-1.5 p-1 rounded-xl bg-white/95 border border-slate-200 text-xs text-[#1E293B] backdrop-blur-md shadow-md">
             <button
               onClick={() => setShowFootprint(!showFootprint)}
               className={`px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all duration-150 cursor-pointer ${
                 showFootprint
-                  ? 'bg-[#1168a0] text-white border border-[#89bada]/60 shadow-xs'
-                  : 'text-[#89bada] hover:text-white'
+                  ? 'bg-[#0F62FE] text-white shadow-xs'
+                  : 'text-[#64748B] hover:text-[#1E293B] hover:bg-slate-100'
               }`}
             >
               SAR Footprint
@@ -277,8 +277,8 @@ export const DetectionPage: React.FC = () => {
               onClick={() => setShowSlick(!showSlick)}
               className={`px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all duration-150 cursor-pointer ${
                 showSlick
-                  ? 'bg-[#f1aa6f] text-[#0a3554] border border-[#f1aa6f] shadow-xs'
-                  : 'text-[#89bada] hover:text-white'
+                  ? 'bg-[#D95800] text-white shadow-xs'
+                  : 'text-[#64748B] hover:text-[#1E293B] hover:bg-slate-100'
               }`}
             >
               Oil Slick
@@ -287,8 +287,8 @@ export const DetectionPage: React.FC = () => {
               onClick={() => setShowCentroid(!showCentroid)}
               className={`px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all duration-150 cursor-pointer ${
                 showCentroid
-                  ? 'bg-[#1168a0] text-white border border-[#89bada]/60 shadow-xs'
-                  : 'text-[#89bada] hover:text-white'
+                  ? 'bg-[#0F62FE] text-white shadow-xs'
+                  : 'text-[#64748B] hover:text-[#1E293B] hover:bg-slate-100'
               }`}
             >
               Centroid
@@ -298,7 +298,7 @@ export const DetectionPage: React.FC = () => {
           {/* Reset view button */}
           <button
             onClick={handleResetView}
-            className="p-2 rounded-xl bg-[#0a3e61]/90 border border-[#1168a0]/60 text-[#89bada] hover:text-white hover:border-[#89bada] backdrop-blur-md shadow-lg transition-colors cursor-pointer"
+            className="p-2 rounded-xl bg-white/95 border border-slate-200 text-[#64748B] hover:text-[#1E293B] hover:border-slate-400 backdrop-blur-md shadow-md transition-colors cursor-pointer"
             title="Reset Map View"
           >
             <RotateCcw className="w-3.5 h-3.5" />
@@ -306,95 +306,95 @@ export const DetectionPage: React.FC = () => {
         </div>
 
         {/* Bottom-Left Coordinate Readout */}
-        <div className="absolute bottom-4 left-4 z-[400] bg-[#082e49]/90 border border-[#1168a0]/60 px-3 py-1.5 rounded-xl text-[11px] text-[#89bada] backdrop-blur-md shadow-lg flex items-center gap-2 pointer-events-none">
-          <Crosshair className="w-3.5 h-3.5 text-[#f1aa6f]" />
+        <div className="absolute bottom-4 left-4 z-[400] bg-white/95 border border-slate-200 px-3 py-1.5 rounded-xl text-[11px] text-[#64748B] backdrop-blur-md shadow-md flex items-center gap-2 pointer-events-none">
+          <Crosshair className="w-3.5 h-3.5 text-[#D95800]" />
           <span>CURSOR:</span>
-          <span className="text-[#edf4fd] font-bold">
+          <span className="text-[#1E293B] font-bold">
             {mouseCoords ? `${fmtLat(mouseCoords.lat)}, ${fmtLon(mouseCoords.lon)}` : `${fmtLat(centerLat)}, ${fmtLon(centerLon)}`}
           </span>
         </div>
       </div>
 
       {/* RIGHT ANALYSIS PANEL (Width: 440px matching Investigation workspace) */}
-      <div className="w-full md:w-96 lg:w-[440px] h-full bg-[#0a1829] border-t md:border-t-0 md:border-l border-[#1168a0]/40 flex flex-col justify-between shrink-0 overflow-y-auto text-[#edf4fd] shadow-2xl">
+      <div className="w-full md:w-96 lg:w-[440px] h-full bg-white border-t md:border-t-0 md:border-l border-slate-200 flex flex-col justify-between shrink-0 overflow-y-auto text-[#1E293B] shadow-xl">
         <div className="p-5 space-y-4">
           {/* Header & Status */}
-          <div className="flex items-center justify-between border-b border-[#1168a0]/40 pb-3">
+          <div className="flex items-center justify-between border-b border-slate-200 pb-3">
             <div>
-              <h2 className="text-sm font-extrabold text-white tracking-wide">
+              <h2 className="text-sm font-extrabold text-[#1E293B] tracking-wide">
                 Slick Detection
               </h2>
-              <p className="text-[10px] text-[#89bada]">
+              <p className="text-[10px] text-[#64748B]">
                 DeepLabV3+ ResNet-50 Segmentation
               </p>
             </div>
             <div className="flex flex-col items-end gap-1">
               <div
-                className={`px-2.5 py-0.5 rounded-full bg-[#082e49] border text-[10px] font-bold tracking-wider shadow-xs ${
-                  noSlick ? 'border-[#89bada] text-[#89bada]' : 'border-[#f1aa6f] text-[#f1aa6f]'
+                className={`px-2.5 py-0.5 rounded-full border text-[10px] font-bold tracking-wider shadow-xs ${
+                  noSlick ? 'bg-slate-100 border-slate-300 text-[#64748B]' : 'bg-orange-50 border-[#D95800]/40 text-[#D95800]'
                 }`}
               >
                 {noSlick ? 'NO SLICK' : 'DETECTED'}
               </div>
-              <div className="text-[9px] font-bold tracking-wider text-[#89bada]">
+              <div className="text-[9px] font-bold tracking-wider text-[#64748B]">
                 {live ? `● LIVE MODEL • ${live.inference.device.toUpperCase()} • ${live.inference.runtimeSec}s` : '● DEMO DATA'}
               </div>
             </div>
           </div>
 
           {liveError && !live && (
-            <div className="flex items-start gap-2 p-2.5 rounded-xl bg-[#3a1d10]/80 border border-[#f1aa6f]/60 text-[10px] text-[#f1aa6f]">
+            <div className="flex items-start gap-2 p-2.5 rounded-xl bg-orange-50 border border-[#D95800]/40 text-[10px] text-[#D95800]">
               <AlertTriangle className="w-3.5 h-3.5 shrink-0 mt-0.5" />
               <span>Model backend unreachable — showing demo data. {liveError}</span>
             </div>
           )}
 
           {/* Compact Measurements Rows */}
-          <div className="space-y-1.5 text-xs p-3.5 rounded-xl bg-[#082e49]/90 border border-[#1168a0]/60 shadow-sm">
-            <div className="flex justify-between py-1 border-b border-[#1168a0]/30">
-              <span className="text-[#89bada]">Area</span>
-              <span className="text-white font-bold">{stats.area}</span>
+          <div className="space-y-1.5 text-xs p-3.5 rounded-xl bg-[#F8FAFC] border border-slate-200 shadow-xs">
+            <div className="flex justify-between py-1 border-b border-slate-200">
+              <span className="text-[#64748B]">Area</span>
+              <span className="text-[#1E293B] font-bold">{stats.area}</span>
             </div>
-            <div className="flex justify-between py-1 border-b border-[#1168a0]/30">
-              <span className="text-[#89bada]">Perimeter</span>
-              <span className="text-white font-bold">{stats.perimeter}</span>
+            <div className="flex justify-between py-1 border-b border-slate-200">
+              <span className="text-[#64748B]">Perimeter</span>
+              <span className="text-[#1E293B] font-bold">{stats.perimeter}</span>
             </div>
-            <div className="flex justify-between py-1 border-b border-[#1168a0]/30">
-              <span className="text-[#89bada]">Length</span>
-              <span className="text-white font-bold">{stats.length}</span>
+            <div className="flex justify-between py-1 border-b border-slate-200">
+              <span className="text-[#64748B]">Length</span>
+              <span className="text-[#1E293B] font-bold">{stats.length}</span>
             </div>
-            <div className="flex justify-between py-1 border-b border-[#1168a0]/30">
-              <span className="text-[#89bada]">Width</span>
-              <span className="text-white font-bold">{stats.width}</span>
+            <div className="flex justify-between py-1 border-b border-slate-200">
+              <span className="text-[#64748B]">Width</span>
+              <span className="text-[#1E293B] font-bold">{stats.width}</span>
             </div>
-            <div className="flex justify-between py-1 border-b border-[#1168a0]/30">
-              <span className="text-[#89bada]">Elongation</span>
-              <span className="text-white font-bold">{stats.elongation}</span>
+            <div className="flex justify-between py-1 border-b border-slate-200">
+              <span className="text-[#64748B]">Elongation</span>
+              <span className="text-[#1E293B] font-bold">{stats.elongation}</span>
             </div>
-            <div className="flex justify-between py-1 border-b border-[#1168a0]/30">
-              <span className="text-[#89bada]">Latitude</span>
-              <span className="text-white font-bold">{stats.lat}</span>
+            <div className="flex justify-between py-1 border-b border-slate-200">
+              <span className="text-[#64748B]">Latitude</span>
+              <span className="text-[#1E293B] font-bold">{stats.lat}</span>
             </div>
-            <div className="flex justify-between py-1 border-b border-[#1168a0]/30">
-              <span className="text-[#89bada]">Longitude</span>
-              <span className="text-white font-bold">{stats.lon}</span>
+            <div className="flex justify-between py-1 border-b border-slate-200">
+              <span className="text-[#64748B]">Longitude</span>
+              <span className="text-[#1E293B] font-bold">{stats.lon}</span>
             </div>
             <div className="flex justify-between py-1">
-              <span className="text-[#89bada]">{stats.captureLabel}</span>
-              <span className="text-[#edf4fd] font-medium">{stats.capture}</span>
+              <span className="text-[#64748B]">{stats.captureLabel}</span>
+              <span className="text-[#1E293B] font-medium">{stats.capture}</span>
             </div>
           </div>
 
           {/* Estimated Slick Type */}
-          <div className="p-3.5 rounded-xl bg-[#082e49]/90 border border-[#1168a0]/60 shadow-sm space-y-1">
-            <div className="text-[10px] text-[#89bada] uppercase tracking-wide font-bold">
+          <div className="p-3.5 rounded-xl bg-[#F8FAFC] border border-slate-200 shadow-xs space-y-1">
+            <div className="text-[10px] text-[#64748B] uppercase tracking-wide font-bold">
               Estimated Slick Type
             </div>
-            <div className="text-xs font-extrabold text-[#f1aa6f]">
+            <div className="text-xs font-extrabold text-[#D95800]">
               Biogenic / Petroleum-like
             </div>
-            <div className="text-[10px] text-[#89bada] flex items-center gap-1 mt-1 font-medium">
-              <Info className="w-3.5 h-3.5 text-[#89bada] shrink-0" />
+            <div className="text-[10px] text-[#64748B] flex items-center gap-1 mt-1 font-medium">
+              <Info className="w-3.5 h-3.5 text-[#64748B] shrink-0" />
               <span>Wave damping classification</span>
             </div>
           </div>
@@ -408,65 +408,65 @@ export const DetectionPage: React.FC = () => {
         </div>
 
         {/* Bottom Section: Action Button or Simulated Attribution State */}
-        <div className="p-4 border-t border-[#1168a0]/40 bg-[#081524]/90 backdrop-blur-md">
+        <div className="p-4 border-t border-slate-200 bg-white">
           {isAnalysingSlick ? (
-            <div className="space-y-3 p-4 rounded-xl bg-[#082e49] border border-[#1168a0]/60 shadow-lg">
-              <div className="flex items-center justify-between border-b border-[#1168a0]/40 pb-2">
-                <span className="text-xs text-[#89bada] font-bold flex items-center gap-2">
-                  <Loader2 className="w-3.5 h-3.5 text-[#f1aa6f] animate-spin" />
+            <div className="space-y-3 p-4 rounded-xl bg-[#F8FAFC] border border-slate-200 shadow-sm">
+              <div className="flex items-center justify-between border-b border-slate-200 pb-2">
+                <span className="text-xs text-[#1E293B] font-bold flex items-center gap-2">
+                  <Loader2 className="w-3.5 h-3.5 text-[#D95800] animate-spin" />
                   Reconstructing spill origin
                 </span>
-                <span className="text-[10px] text-[#f1aa6f] font-bold px-2 py-0.5 rounded bg-[#0a3e61]">
+                <span className="text-[10px] text-[#0F62FE] font-bold px-2 py-0.5 rounded bg-blue-50 border border-blue-200">
                   STAGE {analysisStepIndex}/{analysisTotalSteps}
                 </span>
               </div>
 
-              <div className="space-y-1.5 text-xs text-[#edf4fd]">
+              <div className="space-y-1.5 text-xs text-[#1E293B]">
                 <div className="flex items-center justify-between">
-                  <span className={analysisStepIndex >= 1 ? 'text-white font-bold' : 'text-[#89bada]/50'}>
+                  <span className={analysisStepIndex >= 1 ? 'text-[#1E293B] font-bold' : 'text-[#64748B]/60'}>
                     Seeding particles
                   </span>
-                  <span className="text-[#f1aa6f] font-bold">
+                  <span className="text-[#D95800] font-bold">
                     {analysisStepIndex > 1 ? '✓' : analysisStepIndex === 1 ? '•' : '○'}
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className={analysisStepIndex >= 2 ? 'text-white font-bold' : 'text-[#89bada]/50'}>
+                  <span className={analysisStepIndex >= 2 ? 'text-[#1E293B] font-bold' : 'text-[#64748B]/60'}>
                     Loading ocean forcing
                   </span>
-                  <span className="text-[#f1aa6f] font-bold">
+                  <span className="text-[#D95800] font-bold">
                     {analysisStepIndex > 2 ? '✓' : analysisStepIndex === 2 ? '•' : '○'}
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className={analysisStepIndex >= 3 ? 'text-white font-bold' : 'text-[#89bada]/50'}>
+                  <span className={analysisStepIndex >= 3 ? 'text-[#1E293B] font-bold' : 'text-[#64748B]/60'}>
                     Reverse Lagrangian simulation
                   </span>
-                  <span className="text-[#f1aa6f] font-bold">
+                  <span className="text-[#D95800] font-bold">
                     {analysisStepIndex > 3 ? '✓' : analysisStepIndex === 3 ? '•' : '○'}
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className={analysisStepIndex >= 4 ? 'text-white font-bold' : 'text-[#89bada]/50'}>
+                  <span className={analysisStepIndex >= 4 ? 'text-[#1E293B] font-bold' : 'text-[#64748B]/60'}>
                     Computing KDE envelope
                   </span>
-                  <span className="text-[#f1aa6f] font-bold">
+                  <span className="text-[#D95800] font-bold">
                     {analysisStepIndex > 4 ? '✓' : analysisStepIndex === 4 ? '•' : '○'}
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className={analysisStepIndex >= 5 ? 'text-white font-bold' : 'text-[#89bada]/50'}>
+                  <span className={analysisStepIndex >= 5 ? 'text-[#1E293B] font-bold' : 'text-[#64748B]/60'}>
                     Checking AIS traffic
                   </span>
-                  <span className="text-[#f1aa6f] font-bold">
+                  <span className="text-[#D95800] font-bold">
                     {analysisStepIndex > 5 ? '✓' : analysisStepIndex === 5 ? '•' : '○'}
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className={analysisStepIndex >= 6 ? 'text-white font-bold' : 'text-[#89bada]/50'}>
+                  <span className={analysisStepIndex >= 6 ? 'text-[#1E293B] font-bold' : 'text-[#64748B]/60'}>
                     Scoring candidate vessels
                   </span>
-                  <span className="text-[#f1aa6f] font-bold">
+                  <span className="text-[#D95800] font-bold">
                     {analysisStepIndex >= 6 ? '✓' : '○'}
                   </span>
                 </div>
@@ -476,16 +476,16 @@ export const DetectionPage: React.FC = () => {
             <div className="space-y-2">
               <button
                 onClick={startSlickAnalysis}
-                className="w-full py-3 px-4 rounded-xl bg-[#f1aa6f] hover:bg-[#f4b680] text-[#0a3554] font-extrabold text-xs tracking-wider flex items-center justify-center gap-2 transition-all shadow-md active:scale-[0.99] cursor-pointer"
+                className="w-full py-3 px-4 rounded-xl bg-[#0F62FE] hover:bg-[#0050E6] text-white font-extrabold text-xs tracking-wider flex items-center justify-center gap-2 transition-all shadow-md active:scale-[0.99] cursor-pointer"
               >
                 <span>Analyse Slick</span>
-                <ArrowRight className="w-4 h-4 text-[#0a3554]" />
+                <ArrowRight className="w-4 h-4 text-white" />
               </button>
               <button
                 onClick={() => goToRoute('landing')}
-                className="w-full py-2.5 px-4 rounded-xl bg-[#082e49] hover:bg-[#1168a0] border border-[#1168a0]/80 text-[#89bada] hover:text-[#edf4fd] font-bold text-xs tracking-wide flex items-center justify-center gap-2 transition-all cursor-pointer active:scale-[0.99]"
+                className="w-full py-2.5 px-4 rounded-xl bg-white hover:bg-slate-100 border border-slate-200 text-[#1E293B] font-bold text-xs tracking-wide flex items-center justify-center gap-2 transition-all cursor-pointer active:scale-[0.99] shadow-xs"
               >
-                <RotateCcw className="w-3.5 h-3.5" />
+                <RotateCcw className="w-3.5 h-3.5 text-[#64748B]" />
                 <span>Analyse Another Image</span>
               </button>
             </div>

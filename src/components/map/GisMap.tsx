@@ -181,7 +181,7 @@ export const GisMap: React.FC = () => {
     if (!slickGroup) return;
     slickGroup.clearLayers();
 
-    // SAR Footprint (Square, Theme Orange #f1aa6f)
+    // SAR Footprint (Square, Burnt Orange #D95800)
     if (layers.sarImage) {
       const halfLat = 0.20; // ~22.2 km
       const halfLon = halfLat / Math.cos((centerLat * Math.PI) / 180); // ~28.2 km for perfect square in Mercator
@@ -196,10 +196,10 @@ export const GisMap: React.FC = () => {
             [centerLat + halfLat, centerLon + halfLon],
           ];
       const footprint = L.rectangle(squareBounds, {
-        color: '#f1aa6f',
+        color: '#D95800',
         weight: 2.0,
         dashArray: '6, 6',
-        fillColor: '#f1aa6f',
+        fillColor: '#D95800',
         fillOpacity: 0.10,
       });
       footprint.bindTooltip(
@@ -216,19 +216,19 @@ export const GisMap: React.FC = () => {
       geometry.coordinates.forEach((partCoords) => {
         const latLngs = partCoords.map(([lon, lat]) => [lat, lon] as [number, number]);
         const polygon = L.polygon(latLngs, {
-          color: '#f1aa6f',
+          color: '#D95800',
           weight: 2.2,
-          fillColor: '#f1aa6f',
+          fillColor: '#D95800',
           fillOpacity: 0.28,
         });
 
         polygon.bindPopup(`
-          <div style="font-family: Poppins, sans-serif; font-size: 11px; padding: 2px;">
-            <div style="color: #f1aa6f; font-weight: bold; margin-bottom: 2px;">Detected Oil Slick (T0)</div>
+          <div style="font-family: Poppins, sans-serif; font-size: 11px; padding: 4px; color: #1E293B;">
+            <div style="color: #D95800; font-weight: bold; margin-bottom: 3px;">Detected Oil Slick (T0)</div>
             <div>Area: <b>${isLive ? geometry.areaKm2.toFixed(2) : '17.73'} km²</b></div>
             ${isLive ? '' : '<div>Confidence: <b>94.2%</b></div>'}
             <div>Centroid: <b>${fmtLat(centerLat)}, ${fmtLon(centerLon)}</b></div>
-            <div style="color: #89bada; margin-top: 2px;">${isLive ? `T0 • ${geometry.t0Utc}` : 'Sentinel-1 C-SAR • 05:53 UTC'}</div>
+            <div style="color: #64748B; margin-top: 3px;">${isLive ? `T0 • ${geometry.t0Utc}` : 'Sentinel-1 C-SAR • 05:53 UTC'}</div>
           </div>
         `);
         slickGroup.addLayer(polygon);
@@ -239,9 +239,9 @@ export const GisMap: React.FC = () => {
     if (layers.centroid) {
       const marker = L.circleMarker([centerLat, centerLon], {
         radius: 5.5,
-        color: '#fbbf24',
+        color: '#ffffff',
         weight: 2,
-        fillColor: '#d97706',
+        fillColor: '#0F62FE',
         fillOpacity: 0.95,
       });
       marker.bindTooltip(`Observed Centroid (T0): ${fmtLat(centerLat)}, ${fmtLon(centerLon)}`, {
@@ -264,7 +264,7 @@ export const GisMap: React.FC = () => {
     if (layers.originDriftTrack) {
       const latLngs = originDriftTrack.map((p) => [p.lat, p.lon] as [number, number]);
       const driftLine = L.polyline(latLngs, {
-        color: '#89bada',
+        color: '#0F62FE',
         weight: 2.5,
         dashArray: '5, 5',
       });
@@ -309,25 +309,25 @@ export const GisMap: React.FC = () => {
       });
     }
 
-    // 2-hour interval color gradient mapping for 95% KDE envelopes (Dark blue to Light blue)
+    // 2-hour interval color gradient mapping for 95% KDE envelopes (Deep Cobalt to Soft Blue)
     const getKdeColor = (h: number) => {
       const colorMap: Record<number, string> = {
-        0: '#0c2e59',  // 0h: deep dark blue (at observation)
-        2: '#0e3d74',  // 2h
-        4: '#104d8e',  // 4h
-        6: '#1168a0',  // 6h: dark blue (primary theme)
-        8: '#147cb8',  // 8h
-        10: '#1a91cf', // 10h
-        12: '#2aa6e3', // 12h: clear azure
-        14: '#45baf2', // 14h: vibrant cerulean
-        16: '#63cdfa', // 16h: bright sky blue (interception peak window)
-        18: '#89bada', // 18h: light blue (primary theme)
-        20: '#a8d1ed', // 20h
-        22: '#c9e4f7', // 22h
-        24: '#e4f3fd', // 24h: soft lightest blue
+        0: '#0F62FE',  // 0h: deep cobalt (at observation)
+        2: '#1b6ffc',
+        4: '#297bff',
+        6: '#3d88ff',
+        8: '#5296ff',
+        10: '#68a4ff',
+        12: '#7eb2ff',
+        14: '#93c0ff',
+        16: '#a8ceff',
+        18: '#bcddff',
+        20: '#d0ebff',
+        22: '#e2f4ff',
+        24: '#edf7ff',
       };
       const closestEven = Math.max(0, Math.min(24, Math.round(h / 2) * 2));
-      return colorMap[closestEven] || '#1168a0';
+      return colorMap[closestEven] || '#0F62FE';
     };
 
     // Render 95% KDE envelopes
@@ -351,15 +351,15 @@ export const GisMap: React.FC = () => {
         });
 
         poly.bindPopup(`
-          <div style="font-family: Poppins, sans-serif; font-size: 11px; padding: 2px;">
-            <div style="color: ${color}; font-weight: bold; margin-bottom: 2px;">
+          <div style="font-family: Poppins, sans-serif; font-size: 11px; padding: 4px; color: #1E293B;">
+            <div style="color: ${color}; font-weight: bold; margin-bottom: 3px;">
               95% KDE PROBABLE ORIGIN ENVELOPE (T-${step.timeOffsetHours}h)
             </div>
             <div>Time: <b>${step.timeUtc}</b></div>
             <div>Envelope Area: <b>${step.envelopeAreaKm2.toFixed(1)} km²</b></div>
             <div>Centroid: <b>${fmtLat(step.centroid.lat)}, ${fmtLon(step.centroid.lon)}</b></div>
             ${isLive ? '' : `<div>Density Peak: <b>${fmtLat(step.densityPeak.lat)}, ${fmtLon(step.densityPeak.lon)}</b></div>`}
-            ${step.isKeyInterception ? `<div style="color: #f1aa6f; font-weight: bold; margin-top: 4px;">★ PEAK AIS SPATIO-TEMPORAL INTERSECTION (${isLive && topMdoKm !== undefined ? topMdoKm.toFixed(2) : '0.54'} km MDO)</div>` : ''}
+            ${step.isKeyInterception ? `<div style="color: #D95800; font-weight: bold; margin-top: 4px;">★ PEAK AIS SPATIO-TEMPORAL INTERSECTION (${isLive && topMdoKm !== undefined ? topMdoKm.toFixed(2) : '0.54'} km MDO)</div>` : ''}
           </div>
         `);
 
@@ -372,9 +372,9 @@ export const GisMap: React.FC = () => {
     const activeColor = getKdeColor(currentKdeStep.timeOffsetHours);
     const activeMarker = L.circleMarker([currentKdeStep.centroid.lat, currentKdeStep.centroid.lon], {
       radius: 6,
-      color: activeColor,
+      color: '#ffffff',
       weight: 2,
-      fillColor: currentKdeStep.isKeyInterception ? '#f1aa6f' : '#0c2e59',
+      fillColor: currentKdeStep.isKeyInterception ? '#D95800' : '#0F62FE',
       fillOpacity: 0.95,
     });
 
@@ -383,13 +383,13 @@ export const GisMap: React.FC = () => {
     });
 
     activeMarker.bindPopup(`
-      <div style="font-family: Poppins, sans-serif; font-size: 11px; padding: 2px;">
-        <div style="color: ${activeColor}; font-weight: bold; margin-bottom: 2px;">
+      <div style="font-family: Poppins, sans-serif; font-size: 11px; padding: 4px; color: #1E293B;">
+        <div style="color: ${activeColor}; font-weight: bold; margin-bottom: 3px;">
           KDE Centroid (T-${currentKdeStep.timeOffsetHours}h)
         </div>
         <div>Coordinates: <b>${fmtLat(currentKdeStep.centroid.lat)}, ${fmtLon(currentKdeStep.centroid.lon)}</b></div>
         <div>Envelope Area: <b>${currentKdeStep.envelopeAreaKm2} km²</b></div>
-        ${currentKdeStep.isKeyInterception ? '<div style="color: #f1aa6f; font-weight: bold; margin-top: 4px;">★ PEAK AIS SPATIO-TEMPORAL INTERSECTION</div>' : ''}
+        ${currentKdeStep.isKeyInterception ? '<div style="color: #D95800; font-weight: bold; margin-top: 4px;">★ PEAK AIS SPATIO-TEMPORAL INTERSECTION</div>' : ''}
       </div>
     `);
 
@@ -401,9 +401,9 @@ export const GisMap: React.FC = () => {
         if (k.timeOffsetHours !== currentKdeStep.timeOffsetHours) {
           const marker = L.circleMarker([k.centroid.lat, k.centroid.lon], {
             radius: 4,
-            color: getKdeColor(k.timeOffsetHours),
+            color: '#ffffff',
             weight: 1.5,
-            fillColor: '#0a1d33',
+            fillColor: getKdeColor(k.timeOffsetHours),
             fillOpacity: 0.85,
           });
           kdeGroup.addLayer(marker);
@@ -438,7 +438,7 @@ export const GisMap: React.FC = () => {
     if (layers.forecastDriftTrack && forecastDriftTrack) {
       const trackLatLngs = forecastDriftTrack.map((pt) => [pt.lat, pt.lon] as [number, number]);
       const driftLine = L.polyline(trackLatLngs, {
-        color: '#f97316',
+        color: '#D95800',
         weight: 2.5,
         dashArray: '5, 5',
       });
@@ -450,15 +450,15 @@ export const GisMap: React.FC = () => {
         const isSelected = Math.abs(forecastHourAhead - pt.hourAhead) < 1.5;
         const marker = L.circleMarker([pt.lat, pt.lon], {
           radius: isSelected ? 6 : 4,
-          color: '#f97316',
+          color: '#ffffff',
           weight: 2,
-          fillColor: isSelected ? '#fbbf24' : '#7c2d12',
+          fillColor: isSelected ? '#D95800' : '#ea580c',
           fillOpacity: 0.9,
         });
 
         marker.bindPopup(`
-          <div style="font-family: monospace; font-size: 11px; padding: 2px;">
-            <div style="color: #f97316; font-weight: bold;">FORECAST CENTROID T+${pt.hourAhead}h</div>
+          <div style="font-family: Poppins, sans-serif; font-size: 11px; padding: 4px; color: #1E293B;">
+            <div style="color: #D95800; font-weight: bold; margin-bottom: 3px;">FORECAST CENTROID T+${pt.hourAhead}h</div>
             <div>Time: <b>${pt.timeUtc}</b></div>
             <div>Centroid: <b>${pt.lat.toFixed(4)}°N, ${pt.lon.toFixed(4)}°E</b></div>
             <div>Area Expansion: <b>${pt.areaKm2.toFixed(1)} km²</b></div>
@@ -512,8 +512,8 @@ export const GisMap: React.FC = () => {
 
         const trackLatLngs = vessel.track.map((pt) => [pt.lat, pt.lon] as [number, number]);
 
-        // Line color: crimson red for rank 1 (matching notebook Folium), vibrant orange for other candidates
-        const trackColor = isRank1 ? '#ef4444' : isSelected ? '#fbbf24' : '#f97316';
+        // Line color: burnt orange for rank 1, deep cobalt for selected, slate gray for others
+        const trackColor = isRank1 ? '#D95800' : isSelected ? '#0F62FE' : '#64748B';
 
         const trackLine = L.polyline(trackLatLngs, {
           color: trackColor,
@@ -529,7 +529,7 @@ export const GisMap: React.FC = () => {
         aisGroup.addLayer(trackLine);
 
         // Vessel approach marker
-        const markerColor = isRank1 ? '#ef4444' : '#f97316';
+        const markerColor = isRank1 ? '#D95800' : isSelected ? '#0F62FE' : '#64748B';
         const marker = L.circleMarker([vessel.lastPosition.lat, vessel.lastPosition.lon], {
           radius: isRank1 ? 6 : 4.5,
           color: '#ffffff',
@@ -544,7 +544,7 @@ export const GisMap: React.FC = () => {
 
         if (matchingSuspect) {
           marker.bindTooltip(
-            `<span style="color: ${isRank1 ? '#fca5a5' : '#fdba74'}; font-weight: bold;">#${matchingSuspect.rank} ${matchingSuspect.mmsi}</span>`,
+            `<span style="color: ${isRank1 ? '#D95800' : '#0F62FE'}; font-weight: bold;">#${matchingSuspect.rank} ${matchingSuspect.mmsi}</span>`,
             {
               permanent: isRank1 || isSelected,
               direction: 'right',
@@ -555,15 +555,15 @@ export const GisMap: React.FC = () => {
         }
 
         marker.bindPopup(`
-          <div style="font-family: monospace; font-size: 11px; padding: 2px;">
-            <div style="color: ${isRank1 ? '#ef4444' : '#f97316'}; font-weight: bold; margin-bottom: 2px;">
+          <div style="font-family: Poppins, sans-serif; font-size: 11px; padding: 4px; color: #1E293B;">
+            <div style="color: ${isRank1 ? '#D95800' : '#0F62FE'}; font-weight: bold; margin-bottom: 3px;">
               ${matchingSuspect ? `RANK #${matchingSuspect.rank} • ` : ''}${vessel.name}
             </div>
             <div>MMSI: <b>${vessel.mmsi}</b></div>
             <div>Type: <b>${vessel.vesselType}</b></div>
             <div>Speed / Course: <b>${vessel.sogKn} kn @ ${vessel.cogDeg}°</b></div>
             <div>Closest Approach: <b>${vessel.closestApproachKm} km (T-${vessel.closestHourBack}h)</b></div>
-            ${matchingSuspect ? `<div style="color: #10b981; margin-top: 4px; font-weight: bold;">Attribution Score: ${matchingSuspect.culpritScorePct}%</div>` : ''}
+            ${matchingSuspect ? `<div style="color: #0F62FE; margin-top: 4px; font-weight: bold;">Attribution Score: ${matchingSuspect.culpritScorePct}%</div>` : ''}
           </div>
         `);
 
@@ -583,7 +583,7 @@ export const GisMap: React.FC = () => {
           [targetCentroid.lat, targetCentroid.lon],
         ],
         {
-          color: '#fbbf24',
+          color: '#D95800',
           weight: 2,
           dashArray: '4, 4',
         }
@@ -635,12 +635,12 @@ export const GisMap: React.FC = () => {
       const zoom = map.getZoom();
       const radiusPx = Math.max(25, 45 * Math.pow(2, zoom - 11));
 
-      // Radial gradient representing smooth KDE probability density
+      // Radial gradient representing smooth KDE probability density (Deep Cobalt)
       const gradient = ctx.createRadialGradient(pt.x, pt.y, 2, pt.x, pt.y, radiusPx);
-      gradient.addColorStop(0, 'rgba(168, 85, 247, 0.42)');
-      gradient.addColorStop(0.35, 'rgba(168, 85, 247, 0.28)');
-      gradient.addColorStop(0.7, 'rgba(168, 85, 247, 0.12)');
-      gradient.addColorStop(1, 'rgba(168, 85, 247, 0)');
+      gradient.addColorStop(0, 'rgba(15, 98, 254, 0.42)');
+      gradient.addColorStop(0.35, 'rgba(15, 98, 254, 0.28)');
+      gradient.addColorStop(0.7, 'rgba(15, 98, 254, 0.12)');
+      gradient.addColorStop(1, 'rgba(15, 98, 254, 0)');
 
       ctx.fillStyle = gradient;
       ctx.beginPath();
@@ -686,10 +686,10 @@ export const GisMap: React.FC = () => {
       const particles = isForward ? currentForecastState.particles : currentParticles.particles;
       if (!particles || particles.length === 0) return;
 
-      // Particle styling with high-performance canvas shadow glow (Theme Orange #f1aa6f)
+      // Particle styling with high-performance canvas shadow glow (Secondary Accent: Burnt Orange #D95800)
       ctx.shadowBlur = 4.0;
-      ctx.shadowColor = 'rgba(241, 170, 111, 0.75)';
-      ctx.fillStyle = `rgba(241, 170, 111, ${particleOpacity * 0.95})`;
+      ctx.shadowColor = 'rgba(217, 88, 0, 0.75)';
+      ctx.fillStyle = `rgba(217, 88, 0, ${particleOpacity * 0.95})`;
 
       for (let i = 0; i < particles.length; i++) {
         const pt = particles[i];
@@ -729,7 +729,7 @@ export const GisMap: React.FC = () => {
   ]);
 
   return (
-    <div className="relative w-full h-full bg-[#090b10] overflow-hidden select-none font-mono">
+    <div className="relative w-full h-full bg-[#F4F6F8] overflow-hidden select-none font-mono">
       {/* Leaflet map */}
       <div ref={mapContainerRef} className="w-full h-full z-0" />
 
@@ -750,29 +750,29 @@ export const GisMap: React.FC = () => {
 
       {/* Floating Forward Forecast Mode HUD (Top Right) */}
       {simDirection === 'FORWARD' && (
-        <div className="absolute top-4 right-4 z-[450] bg-slate-950/92 border border-amber-500/50 px-3.5 py-2 rounded-lg backdrop-blur-md text-xs font-mono shadow-[0_0_25px_rgba(245,158,11,0.25)] flex flex-col gap-1 pointer-events-none">
+        <div className="absolute top-4 right-4 z-[450] bg-white/95 border border-slate-200 px-3.5 py-2 rounded-xl backdrop-blur-md text-xs font-mono shadow-xl flex flex-col gap-1 pointer-events-none text-[#1E293B]">
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping" />
-            <span className="font-bold text-amber-300 tracking-wide">FORWARD SPILL FORECAST</span>
-            <span className="px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[10px] font-bold">
+            <span className="w-2 h-2 rounded-full bg-[#D95800] animate-ping" />
+            <span className="font-bold text-[#D95800] tracking-wide">FORWARD SPILL FORECAST</span>
+            <span className="px-1.5 py-0.2 rounded bg-[#D95800]/10 text-[#D95800] border border-[#D95800]/30 text-[10px] font-bold">
               T+{forecastHourAhead.toFixed(1)}h
             </span>
           </div>
-          <div className="flex items-center gap-3 text-[11px] text-slate-300 pt-0.5">
+          <div className="flex items-center gap-3 text-[11px] text-[#64748B] pt-0.5">
             <span>
-              Particles: <b className="text-[#f1aa6f]">1,000</b>
+              Particles: <b className="text-[#D95800]">1,000</b>
             </span>
             <span>•</span>
             <span>
-              Area: <b className="text-white">{currentForecastState.areaKm2.toFixed(1)} km²</b>
+              Area: <b className="text-[#1E293B]">{currentForecastState.areaKm2.toFixed(1)} km²</b>
             </span>
             <span>•</span>
             <span>
-              Evap: <b className="text-amber-400">{currentForecastState.evaporatedPct.toFixed(1)}%</b>
+              Evap: <b className="text-[#D95800]">{currentForecastState.evaporatedPct.toFixed(1)}%</b>
             </span>
             <span>•</span>
             <span>
-              Disp: <b className="text-emerald-400">{currentForecastState.dispersedPct.toFixed(1)}%</b>
+              Disp: <b className="text-[#0F62FE]">{currentForecastState.dispersedPct.toFixed(1)}%</b>
             </span>
           </div>
         </div>
@@ -785,29 +785,29 @@ export const GisMap: React.FC = () => {
       <KdeLegend />
 
       {/* Bottom-Left Coordinate & Hover Density HUD */}
-      <div className="absolute bottom-4 left-4 z-[450] bg-[#0d0f17]/92 border border-slate-800/90 px-3 py-1.5 rounded text-[11px] font-mono text-slate-300 pointer-events-none flex items-center gap-4 shadow-lg backdrop-blur-md">
+      <div className="absolute bottom-4 left-4 z-[450] bg-white/95 border border-slate-200 px-3 py-1.5 rounded-lg text-[11px] font-mono text-[#64748B] pointer-events-none flex items-center gap-4 shadow-xl backdrop-blur-md">
         <div className="flex items-center gap-1.5">
-          <Crosshair className="w-3.5 h-3.5 text-emerald-400" />
+          <Crosshair className="w-3.5 h-3.5 text-[#0F62FE]" />
           <span>CURSOR:</span>
-          <span className="text-slate-100 font-semibold">
+          <span className="text-[#1E293B] font-semibold">
             {mouseCoords ? `${fmtLat(mouseCoords.lat)}, ${fmtLon(mouseCoords.lon)}` : `${fmtLat(centerLat)}, ${fmtLon(centerLon)}`}
           </span>
         </div>
 
         {hoveredDensity !== null && (
           <>
-            <div className="h-3 w-px bg-slate-700" />
-            <div className="flex items-center gap-1.5 text-[#89bada]">
+            <div className="h-3 w-px bg-slate-200" />
+            <div className="flex items-center gap-1.5 text-[#64748B]">
               <span>Relative density:</span>
-              <span className="font-bold text-white">{Math.round(hoveredDensity * 100)}%</span>
+              <span className="font-bold text-[#0F62FE]">{Math.round(hoveredDensity * 100)}%</span>
             </div>
           </>
         )}
 
-        <div className="h-3 w-px bg-slate-700 hidden sm:block" />
-        <div className="hidden sm:flex items-center gap-1 text-slate-400">
+        <div className="h-3 w-px bg-slate-200 hidden sm:block" />
+        <div className="hidden sm:flex items-center gap-1 text-[#64748B]">
           <span>REGION:</span>
-          <span className="text-slate-200">{isLive ? `LIVE MODEL / ${geometry.localCrs}` : 'IONIAN SEA / EPSG:32634'}</span>
+          <span className="text-[#1E293B]">{isLive ? `LIVE MODEL / ${geometry.localCrs}` : 'IONIAN SEA / EPSG:32634'}</span>
         </div>
       </div>
     </div>

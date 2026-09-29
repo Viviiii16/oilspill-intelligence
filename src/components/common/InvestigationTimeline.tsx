@@ -103,14 +103,14 @@ export const InvestigationTimeline: React.FC = () => {
   };
 
   return (
-    <div className="h-20 bg-[#0f2035] border-t border-sky-900/80 px-6 py-2 flex flex-col justify-between select-none z-20 shrink-0 font-mono text-xs text-slate-200">
+    <div className="h-20 bg-white border-t border-slate-200 px-6 py-2 flex flex-col justify-between select-none z-20 shrink-0 font-mono text-xs text-[#1E293B]">
       {/* Top Bar: Playback Controls & Status */}
       <div className="flex items-center justify-between">
         {/* Left: Play/Pause, Step, Speed */}
         <div className="flex items-center gap-2">
           <button
             onClick={handleStepPrev}
-            className="p-1.5 rounded bg-[#152c48] hover:bg-[#1b385c] border border-sky-700/60 text-sky-200 hover:text-white transition-colors cursor-pointer shadow-xs"
+            className="p-1.5 rounded bg-slate-50 hover:bg-slate-100 border border-slate-200 text-[#1E293B] transition-colors cursor-pointer shadow-xs"
             title="Step Back"
           >
             <ChevronLeft className="w-3.5 h-3.5" />
@@ -118,10 +118,10 @@ export const InvestigationTimeline: React.FC = () => {
 
           <button
             onClick={handleTogglePlay}
-            className={`px-3 py-1 rounded text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer shadow-sm text-slate-950 ${
+            className={`px-3 py-1 rounded text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer shadow-sm text-white ${
               isPlaying
-                ? 'bg-amber-400 hover:bg-amber-300 shadow-amber-400/20'
-                : 'bg-sky-400 hover:bg-sky-300 shadow-sky-400/20'
+                ? 'bg-[#D95800] hover:bg-[#b84800]'
+                : 'bg-[#0F62FE] hover:bg-[#0043ce]'
             }`}
           >
             {isPlaying ? (
@@ -139,21 +139,21 @@ export const InvestigationTimeline: React.FC = () => {
 
           <button
             onClick={handleStepNext}
-            className="p-1.5 rounded bg-[#152c48] hover:bg-[#1b385c] border border-sky-700/60 text-sky-200 hover:text-white transition-colors cursor-pointer shadow-xs"
+            className="p-1.5 rounded bg-slate-50 hover:bg-slate-100 border border-slate-200 text-[#1E293B] transition-colors cursor-pointer shadow-xs"
             title="Step Forward"
           >
             <ChevronRight className="w-3.5 h-3.5" />
           </button>
 
-          <div className="flex items-center gap-1 bg-[#152c48] border border-sky-700/60 rounded p-0.5 ml-2 shadow-xs">
+          <div className="flex items-center gap-1 bg-slate-50 border border-slate-200 rounded p-0.5 ml-2 shadow-xs">
             {[1, 2, 4].map((sp) => (
               <button
                 key={sp}
                 onClick={() => setPlaybackSpeed(sp)}
                 className={`px-1.5 py-0.5 rounded text-[10px] font-bold cursor-pointer transition-colors ${
                   playbackSpeed === sp
-                    ? 'bg-sky-500/20 text-sky-300 border border-sky-400'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-[#0F62FE]/10 text-[#0F62FE] border border-[#0F62FE]'
+                    : 'text-[#64748B] hover:text-[#1E293B]'
                 }`}
               >
                 {sp}×
@@ -164,28 +164,28 @@ export const InvestigationTimeline: React.FC = () => {
 
         {/* Center: Current Timestep Display */}
         <div className="flex items-center gap-2 text-xs">
-          <Clock className="w-3.5 h-3.5 text-sky-400" />
-          <span className="font-bold text-white">
+          <Clock className="w-3.5 h-3.5 text-[#0F62FE]" />
+          <span className="font-bold text-[#1E293B]">
             {isForecast ? `T+${forecastHourAhead}h` : simHourBack === 0 ? 'T0 (Observation)' : `T−${simHourBack}h (Hindcast)`}
           </span>
-          <span className="text-slate-500">|</span>
-          <span className="text-sky-300 font-semibold">
+          <span className="text-slate-300">|</span>
+          <span className="text-[#0F62FE] font-semibold">
             {isForecast ? currentForecastState.timeUtc : currentKdeStep.timeUtc}
           </span>
         </div>
 
         {/* Right Mode Indicator */}
-        <div className="text-[11px] text-slate-400 hidden sm:flex items-center gap-2">
-          <span>Particles: <strong className="text-white">{isForecast ? '1,000' : particleCount.toLocaleString()}</strong></span>
+        <div className="text-[11px] text-[#64748B] hidden sm:flex items-center gap-2">
+          <span>Particles: <strong className="text-[#1E293B]">{isForecast ? '1,000' : particleCount.toLocaleString()}</strong></span>
           <span>•</span>
-          <span>Leeway factor: <strong className="text-white">0.03</strong></span>
+          <span>Leeway factor: <strong className="text-[#1E293B]">0.03</strong></span>
         </div>
       </div>
 
       {/* Bottom Continuous Interactive Timeline */}
       <div className="relative flex items-center justify-between px-2 pt-1 pb-1">
         {/* Track horizontal connector line */}
-        <div className="absolute left-6 right-6 top-[13px] h-0.5 bg-sky-800/80 -z-0" />
+        <div className="absolute left-6 right-6 top-[13px] h-0.5 bg-slate-200 -z-0" />
 
         {timelinePoints.map((pt) => {
           const isActive =
@@ -204,24 +204,24 @@ export const InvestigationTimeline: React.FC = () => {
                   className={`w-3.5 h-3.5 rounded-full border-2 transition-all flex items-center justify-center ${
                     isActive
                       ? pt.isKeyInterception
-                        ? 'bg-amber-400 border-amber-300 scale-125 shadow-sm shadow-amber-400/40'
-                        : 'bg-sky-400 border-sky-300 scale-125 shadow-sm shadow-sky-400/40'
+                        ? 'bg-[#D95800] border-orange-300 scale-125 shadow-sm shadow-orange-500/40'
+                        : 'bg-[#0F62FE] border-blue-300 scale-125 shadow-sm shadow-blue-500/40'
                       : pt.isKeyInterception
-                      ? 'bg-[#0f2035] border-amber-400 hover:scale-110'
-                      : 'bg-[#0f2035] border-sky-600 hover:border-sky-400 hover:scale-110'
+                      ? 'bg-white border-[#D95800] hover:scale-110'
+                      : 'bg-white border-slate-300 hover:border-[#0F62FE] hover:scale-110'
                   }`}
                 >
-                  {isActive && <div className="w-1 h-1 rounded-full bg-slate-950" />}
+                  {isActive && <div className="w-1 h-1 rounded-full bg-white" />}
                 </div>
 
                 {/* Point Label */}
                 <span
                   className={`mt-1 text-[11px] tracking-tight transition-colors ${
                     isActive
-                      ? 'text-sky-300 font-bold'
+                      ? 'text-[#0F62FE] font-bold'
                       : pt.isKeyInterception
-                      ? 'text-amber-400 font-semibold'
-                      : 'text-slate-400 hover:text-slate-200'
+                      ? 'text-[#D95800] font-semibold'
+                      : 'text-[#64748B] hover:text-[#1E293B]'
                   }`}
                 >
                   {pt.label}
@@ -230,7 +230,7 @@ export const InvestigationTimeline: React.FC = () => {
 
               {/* Special AIS intersection arrow annotation */}
               {pt.isKeyInterception && (
-                <div className="absolute top-9 whitespace-nowrap text-[9px] text-amber-400 font-bold flex items-center gap-0.5 pointer-events-none">
+                <div className="absolute top-9 whitespace-nowrap text-[9px] text-[#D95800] font-bold flex items-center gap-0.5 pointer-events-none">
                   <span>↑</span>
                   <span>AIS intersection</span>
                 </div>
