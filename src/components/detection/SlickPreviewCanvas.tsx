@@ -179,10 +179,10 @@ export const SlickPreviewCanvas: React.FC<SlickPreviewCanvasProps> = ({ mode, on
       ctx.fillStyle = '#ffffff';
       ctx.fill();
     } else if (mode === 'overlay') {
-      // Translucent slick mask overlaid on SAR with theme orange styling (#D95800)
-      ctx.fillStyle = 'rgba(217, 88, 0, 0.32)';
+      // Translucent slick mask overlaid on SAR with theme orange styling
+      ctx.fillStyle = 'rgba(241, 170, 111, 0.30)';
       ctx.fill();
-      ctx.strokeStyle = '#D95800';
+      ctx.strokeStyle = '#f1aa6f';
       ctx.lineWidth = 2.0;
       ctx.stroke();
 
@@ -191,7 +191,7 @@ export const SlickPreviewCanvas: React.FC<SlickPreviewCanvasProps> = ({ mode, on
         DEMO_SLICK_GEOMETRY.centroid.lon,
         DEMO_SLICK_GEOMETRY.centroid.lat,
       ]);
-      ctx.fillStyle = '#0F62FE';
+      ctx.fillStyle = '#89bada';
       ctx.beginPath();
       ctx.arc(cx, cy, 4, 0, Math.PI * 2);
       ctx.fill();
@@ -204,16 +204,16 @@ export const SlickPreviewCanvas: React.FC<SlickPreviewCanvasProps> = ({ mode, on
   return (
     <div className="space-y-2 font-sans">
       <div className="flex items-center justify-between text-[11px]">
-        <span className="text-[#64748B] font-bold text-[10px] tracking-wider uppercase">SAR SENSOR CROP</span>
-        <div className="flex items-center rounded-lg bg-slate-100 border border-slate-200 p-0.5">
+        <span className="text-[#f1aa6f] font-bold text-[10px] tracking-wider uppercase">SAR SENSOR CROP</span>
+        <div className="flex items-center rounded-lg bg-[#082e49] border border-[#1168a0]/60 p-0.5">
           {(['sar', 'mask', 'overlay'] as SARPreviewMode[]).map((m) => (
             <button
               key={m}
               onClick={() => onModeChange(m)}
               className={`px-2.5 py-0.5 rounded-md text-[10px] uppercase font-bold transition-colors cursor-pointer ${
                 mode === m
-                  ? 'bg-[#0F62FE] text-white shadow-xs'
-                  : 'text-[#64748B] hover:text-[#1E293B]'
+                  ? 'bg-[#1168a0] text-white border border-[#89bada]/60 shadow-xs'
+                  : 'text-[#89bada] hover:text-white'
               }`}
             >
               {m}
@@ -222,14 +222,14 @@ export const SlickPreviewCanvas: React.FC<SlickPreviewCanvasProps> = ({ mode, on
         </div>
       </div>
 
-      <div className="relative w-full aspect-square bg-[#05070d] border border-slate-200 rounded-xl overflow-hidden flex items-center justify-center shadow-sm">
+      <div className="relative w-full aspect-square bg-[#081524] border border-[#1168a0]/60 rounded-xl overflow-hidden flex items-center justify-center shadow-md">
         <canvas
           ref={canvasRef}
           width={400}
           height={400}
           className="w-full h-full object-cover"
         />
-        <div className="absolute bottom-2 left-2 text-[10px] text-[#1E293B] bg-white/95 px-2.5 py-1 rounded-md border border-slate-200 pointer-events-none shadow-xs font-medium">
+        <div className="absolute bottom-2 left-2 text-[10px] text-[#edf4fd] bg-[#082e49]/95 px-2.5 py-1 rounded-md border border-[#1168a0]/60 pointer-events-none shadow-xs font-medium">
           {mode === 'sar' && (images ? 'Sentinel-1 VV Channel (uploaded scene)' : 'Sentinel-1 VV Channel (-8.7 dB depression)')}
           {mode === 'mask' && 'DeepLabV3+ ResNet-50 Binary Mask'}
           {mode === 'overlay' && 'Segmentation Overlay (62.6% IoU)'}
